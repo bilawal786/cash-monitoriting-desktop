@@ -25,8 +25,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
   String? currentImage;
   String? defaultValue;
   final List<String> _statusList = [
-    'Active',
-    'Deactive',
+    'Actif',
+    'Désactiver',
   ];
   @override
   void initState() {
@@ -90,16 +90,16 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         label: _tableHeader('ID'),
                         size: ColumnSize.S,
                       ),
+                      // DataColumn2(
+                      //   label: _tableHeader('Couleur'),
+                      //   size: ColumnSize.L,
+                      // ),
                       DataColumn2(
-                        label: _tableHeader('Image'),
-                        size: ColumnSize.L,
-                      ),
-                      DataColumn2(
-                        label: _tableHeader('Category Name'),
+                        label: _tableHeader('Nom de catégorie'),
                         size: ColumnSize.M,
                       ),
                       DataColumn2(
-                        label: _tableHeader('Status'),
+                        label: _tableHeader('Statut'),
                         size: ColumnSize.S,
                       ),
                       DataColumn2(
@@ -114,65 +114,65 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         },
                         cells: [
                           DataCell(_tableHeader('1')),
-                          DataCell(_tableRowImage(Images.men)),
+                          // DataCell(_tableRowImage(Images.men)),
                           DataCell(_tableHeader('Men')),
                           DataCell(
                               _statusBox(ColorConst.successDark, 'Active')),
                           DataCell(_editButton()),
                         ],
                       ),
-                      DataRow(
-                        onSelectChanged: (value) {
-                          autoTabRouter!.setActiveIndex(41);
-                        },
-                        cells: [
-                          DataCell(_tableHeader('2')),
-                          DataCell(_tableRowImage(Images.women)),
-                          DataCell(_tableHeader('Women')),
-                          DataCell(
-                              _statusBox(ColorConst.warningDark, 'Deactive')),
-                          DataCell(_editButton()),
-                        ],
-                      ),
-                      DataRow(
-                        onSelectChanged: (value) {
-                          autoTabRouter!.setActiveIndex(41);
-                        },
-                        cells: [
-                          DataCell(_tableHeader('3')),
-                          DataCell(_tableRowImage(Images.electronic)),
-                          DataCell(_tableHeader('Accessories')),
-                          DataCell(
-                              _statusBox(ColorConst.successDark, 'Active')),
-                          DataCell(_editButton()),
-                        ],
-                      ),
-                      DataRow(
-                        onSelectChanged: (value) {
-                          autoTabRouter!.setActiveIndex(41);
-                        },
-                        cells: [
-                          DataCell(_tableHeader('4')),
-                          DataCell(_tableRowImage(Images.homeAndKitchen)),
-                          DataCell(_tableHeader('Home And Kitchen')),
-                          DataCell(
-                              _statusBox(ColorConst.successDark, 'Active')),
-                          DataCell(_editButton()),
-                        ],
-                      ),
-                      DataRow(
-                        onSelectChanged: (value) {
-                          autoTabRouter!.setActiveIndex(41);
-                        },
-                        cells: [
-                          DataCell(_tableHeader('5')),
-                          DataCell(_tableRowImage(Images.entertainment)),
-                          DataCell(_tableHeader('Entertainment')),
-                          DataCell(
-                              _statusBox(ColorConst.successDark, 'Active')),
-                          DataCell(_editButton()),
-                        ],
-                      ),
+                      // DataRow(
+                      //   onSelectChanged: (value) {
+                      //     autoTabRouter!.setActiveIndex(41);
+                      //   },
+                      //   cells: [
+                      //     DataCell(_tableHeader('2')),
+                      //     DataCell(_tableRowImage(Images.women)),
+                      //     DataCell(_tableHeader('Women')),
+                      //     DataCell(
+                      //         _statusBox(ColorConst.warningDark, 'Deactive')),
+                      //     DataCell(_editButton()),
+                      //   ],
+                      // ),
+                      // DataRow(
+                      //   onSelectChanged: (value) {
+                      //     autoTabRouter!.setActiveIndex(41);
+                      //   },
+                      //   cells: [
+                      //     DataCell(_tableHeader('3')),
+                      //     DataCell(_tableRowImage(Images.electronic)),
+                      //     DataCell(_tableHeader('Accessories')),
+                      //     DataCell(
+                      //         _statusBox(ColorConst.successDark, 'Active')),
+                      //     DataCell(_editButton()),
+                      //   ],
+                      // ),
+                      // DataRow(
+                      //   onSelectChanged: (value) {
+                      //     autoTabRouter!.setActiveIndex(41);
+                      //   },
+                      //   cells: [
+                      //     DataCell(_tableHeader('4')),
+                      //     DataCell(_tableRowImage(Images.homeAndKitchen)),
+                      //     DataCell(_tableHeader('Home And Kitchen')),
+                      //     DataCell(
+                      //         _statusBox(ColorConst.successDark, 'Active')),
+                      //     DataCell(_editButton()),
+                      //   ],
+                      // ),
+                      // DataRow(
+                      //   onSelectChanged: (value) {
+                      //     autoTabRouter!.setActiveIndex(41);
+                      //   },
+                      //   cells: [
+                      //     DataCell(_tableHeader('5')),
+                      //     DataCell(_tableRowImage(Images.entertainment)),
+                      //     DataCell(_tableHeader('Entertainment')),
+                      //     DataCell(
+                      //         _statusBox(ColorConst.successDark, 'Active')),
+                      //     DataCell(_editButton()),
+                      //   ],
+                      // ),
                     ],
                   ),
                 ),
@@ -237,27 +237,27 @@ class _CategoryScreenState extends State<CategoryScreen> {
   Widget _createCategory() {
     return Row(
       children: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            GestureDetector(
-              onTap: () async {},
-              child: CircleAvatar(
-                radius: 36,
-                backgroundColor: ColorConst.primary.withOpacity(0.2),
-                child: currentImage == null
-                    ? const SvgIcon(
-                        icon: IconlyBroken.camera,
-                        size: 26,
-                      )
-                    : Image.asset(
-                        currentImage!,
-                        height: 30,
-                      ),
-              ),
-            ),
-          ],
-        ),
+        // Column(
+        //   mainAxisAlignment: MainAxisAlignment.start,
+        //   children: [
+        //     GestureDetector(
+        //       onTap: () async {},
+        //       child: CircleAvatar(
+        //         radius: 36,
+        //         backgroundColor: ColorConst.primary.withOpacity(0.2),
+        //         child: currentImage == null
+        //             ? const SvgIcon(
+        //                 icon: IconlyBroken.camera,
+        //                 size: 26,
+        //               )
+        //             : Image.asset(
+        //                 currentImage!,
+        //                 height: 30,
+        //               ),
+        //       ),
+        //     ),
+        //   ],
+        // ),
         FxBox.w24,
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -266,7 +266,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
               width: MediaQuery.of(context).size.width * 0.2,
               child: CustomTextField(
                 controller: _categoryController,
-                hintText: 'Enter Category Name',
+                hintText: 'Entrez le nom de la catégorie',
                 border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
               ),
@@ -303,14 +303,17 @@ class _CategoryScreenState extends State<CategoryScreen> {
           height: 50,
           onPressed: () async {
             isShow = !isShow;
-            currentImage = null;
-            _categoryController.text = '';
-            setState(() {});
+            // currentImage = null;
+            // _categoryController.text = '';
+            setState(() {
+              print("status $defaultValue");
+              print("Input ${_categoryController.text}");
+            });
           },
           fullWidth: false,
           color: ColorConst.primary,
           minWidth: MediaQuery.of(context).size.width / 7,
-          text: 'Add Category',
+          text: 'Ajouter une catégorie',
         ),
         FxBox.w24,
         FxButton(
@@ -345,7 +348,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
           isShow = !isShow;
           setState(() {});
         },
-        text: 'New Category',
+        text: 'Nouvelle catégorie',
       ),
     );
   }

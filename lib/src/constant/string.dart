@@ -9,7 +9,8 @@ class Strings {
 
   static const String admin = 'Admin';
 
-  static const String footerText = '© 2022 Admin. Crafted with ❤️ by Sarvadhi';
+  // static const String footerText = '© 2023 Ikae Digital. all rights reserved';
+  static const String footerText = '© 2023 Ikae Digital. tous les droits sont réservés';
 
   // appbar
   static const String searchHint = 'Search...';
@@ -25,7 +26,8 @@ class Strings {
   // static const String extras = 'Extras';
 
   // drawer menu heading
-  static const String dashboard = 'Dashboard';
+  // static const String dashboard = 'Dashboard';
+  static const String dashboard = 'Tableau de bord';
   static const String calendar = 'Calendar';
   static const String map = 'Map';
   static const String uiElements = 'Widgets';
@@ -128,11 +130,15 @@ class Strings {
   static const String emailstr = 'Email*';
   static const String phonestr = 'Phone*';
   static const String userStr = 'Username';
-  static const String enterUser = 'Enter Your UserName';
-  static const String enterEmail = 'Enter Your Email';
+  // static const String enterUser = 'Enter Your UserName';
+  static const String enterUser = 'Entrez votre nom d\'utilisateur';
+  // static const String enterEmail = 'Enter Your Email';
+  static const String enterEmail = 'Entrer votre Email';
   static const String enterPhone = 'Enter Your Phone';
-  static const String password = 'Password';
-  static const String enterPassword = 'Enter password';
+  // static const String password = 'Password';
+  static const String password = 'Mot de passe';
+  // static const String enterPassword = 'Enter password';
+  static const String enterPassword = 'Mot de passe';
   static const String dontHaveAccount = 'Don\'t have an account ? ';
   static const String signUpNow = 'Signup now';
   static const String loginLabel = 'Log In';
@@ -140,7 +146,8 @@ class Strings {
   static const String forgotPassword = 'Forgot your password';
   static const String privacy = 'Privacy';
   static const String terms = 'Terms';
-  static const String sarvadhi2022 = '© 2022 Sarvadhi';
+  // static const String sarvadhi2022 = '© 2022 Sarvadhi';
+  static const String sarvadhi2022 = '© 2023 Ikea Digital';
 
   // Register
   static const String freeRegister = 'Free Register';
@@ -168,20 +175,24 @@ class Strings {
   static const String locked = 'Locked';
   static const String unLock = 'Unlock';
   static const String notYouReturn = 'Not you ? return ';
-  static const String signIn = 'Sign In';
+  // static const String signIn = 'Sign In';
+  static const String signIn = 'S\'identifier';
   static const String contactInfo = 'Contact information';
   static const String lockedDescription =
       'Hello Jane, enter your password to unlock the screen!';
 
   // sale report
   static const String salesReport = 'Monthly Report';
+  // static const String reports = 'Report';
+  static const String reports1 = 'Rapports';
   static const String salesOverview = 'Sales Overview';
   static const String desktop = 'Desktop';
   static const String mobile = 'Mobile';
   static const String tablets = 'Tablets';
 
   // monthly earning
-  static const String monthlyEarning = 'Monthly Income';
+  // static const String monthlyEarning = 'Monthly Income';
+  static const String monthlyExpenses = 'Dépenses mensuelles';
 
   // sales analystics
   static const String salesAnalytics = 'Monthly Sales Report';
@@ -216,7 +227,8 @@ class Strings {
   static const String select = 'Select';
   static const String color = 'Color';
   static const String pickColor = 'Pick Color';
-  static const String signin = 'Sign In';
+  // static const String signin = 'Sign In';
+  static const String signin = 'S\'identifier';
 
   // menubar
   static const String logout = 'Logout';
@@ -241,8 +253,10 @@ class Strings {
   static const String primary = 'Primary';
 
   // modal
-  static const String close = 'Close';
-  static const String saveChange = 'Save changes';
+  // static const String close = 'Close';
+  static const String close = 'Fermer';
+  // static const String saveChange = 'Save changes';
+  static const String saveChange = 'Sauvegarder';
 
   // table
   static const String dartTable = 'Dark';
@@ -274,7 +288,9 @@ class Strings {
 
   static const String products = 'Products';
   static const String filter = 'Filter';
-  static const String category = 'Category';
+  // static const String category = 'Category';
+  static const String category = 'Catégorie';
+  static const String expenses = 'Expenses';
   static const String subCategory = 'sub Category';
   static const String vender = 'Vender';
   static const String customer = 'Customer';
@@ -296,5 +312,12 @@ class Strings {
   static const String eCommerceDashboard = 'E Commerce Dashboard';
   static const String globalSaleText = 'Global Sales by Tops Locations';
   static const String latestTransaction = 'Latest Transaction';
-  static const String productAdd = 'Product Add';
+  // static const String productAdd = 'Product Add';
+  // static const String expense = 'Expense';
+  static const String expense = 'Frais';
+  static const String expenseReport = 'Rapports de dépenses';
+  static const String expenseCategoryReport = 'Rapports sur les catégories de dépenses';
+
+
+  static const String baseUrl = 'https://cash-monitoring.ikaedigital.com/';
 }

@@ -15,39 +15,38 @@ class _ListitemState extends State<Listitem> {
   final List<Map<String, dynamic>> _listItem = [
     {
       'id': 0,
-      'producTitle': 'Total Inventory',
-      'value': '3,930',
+      'producTitle': 'Catégories totales',
+      'value': '0',
       'boxIcon': Icons.note_add,
       // 'boxColor': '05A660',
       'boxColor': ['FEBE99', 'F66F94'],
-      'percentage': 60,
     },
     {
       'id': 1,
-      'producTitle': 'Total Active',
-      'value': '1,268',
+      'producTitle': 'Dépenses totales',
+      'value': '0',
       'boxIcon': Icons.note_alt_rounded,
       // 'boxColor': '9B5B1E',
       'boxColor': ['43D5E7', '7DB1F0'],
-      'percentage': 10,
+      // 'percentage': 10,
     },
     {
       'id': 2,
-      'producTitle': 'Total Cancel',
-      'value': '170',
+      'producTitle': 'Dépenses mensuelles',
+      'value': '0',
       'boxIcon': Icons.pending_actions_outlined,
       // 'boxColor': '18818D',
       'boxColor': ['8DDAD3', '3CC2AE'],
-      'percentage': -5,
+      // 'percentage': -5,
     },
     {
       'id': 3,
-      'producTitle': 'Total Sales',
-      'value': '28,060',
+      'producTitle': 'Dépenses annuelles',
+      'value': '0',
       'boxIcon': Icons.shopping_bag_rounded,
       // 'boxColor': '004FC4',
       'boxColor': ['A100DA', '400370'],
-      'percentage': 15,
+      // 'percentage': 15,
     },
   ];
   @override
@@ -84,7 +83,7 @@ class _ListitemState extends State<Listitem> {
             boxIcon: _listItem[index]['boxIcon'],
             productTitle: _listItem[index]['producTitle'],
             value: _listItem[index]['value'],
-            percentage: _listItem[index]['percentage'],
+            // percentage: _listItem[index]['percentage'],
             color: index == 3
                 ? [
                     Color(int.parse('0xff${_listItem[index]['boxColor'][0]}'))
@@ -107,7 +106,7 @@ class _ListitemState extends State<Listitem> {
     required String productTitle,
     required String value,
     required List<Color> color,
-    required int percentage,
+    // required int percentage,
   }) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(18.0),
@@ -149,13 +148,13 @@ class _ListitemState extends State<Listitem> {
                   fontWeight: FontWeight.bold,
                 ),
                 const Spacer(),
-                ConstText.lightText(
-                  text: percentage > 0
-                      ? 'Increased by ${percentage.abs()}%'
-                      : 'Decreased by ${percentage.abs()}%',
-                  color: ColorConst.white,
-                  fontWeight: FontWeight.bold,
-                ),
+                // ConstText.lightText(
+                //   text: percentage > 0
+                //       ? 'Increased by ${percentage.abs()}%'
+                //       : 'Decreased by ${percentage.abs()}%',
+                //   color: ColorConst.white,
+                //   fontWeight: FontWeight.bold,
+                // ),
               ],
             ),
           ),

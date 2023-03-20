@@ -57,6 +57,8 @@ import 'package:admin_dashboard/src/views/ui_elements/videos/video_screen.dart';
 import 'package:admin_dashboard/src/views/user/user_profile.dart';
 import 'package:flutter/material.dart';
 
+import '../views/reports/reports.dart';
+
 int getRouteIndex(String route) {
   if (route == Strings.buttons) {
     return 1;
@@ -166,8 +168,10 @@ int getRouteIndex(String route) {
     return 53;
   } else if (route == Strings.cart) {
     return 54;
-  } else if (route == Strings.productAdd) {
+  } else if (route == Strings.expense) {
     return 55;
+  }  else if (route == Strings.reports1) {
+    return 56;
   } else {
     return 0;
   }
@@ -284,6 +288,8 @@ Widget getRouteWidget(int index) {
     return const CartScreen();
   } else if (index == 55) {
     return const ProductAdd();
+  } else if (index == 56) {
+    return const Reports();
   } else {
     return const Dashboard();
   }

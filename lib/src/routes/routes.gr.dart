@@ -514,7 +514,7 @@ class AppRouter extends _i70.RootStackRouter {
   List<_i70.RouteConfig> get routes => [
         _i70.RouteConfig(
           FMenuBar.name,
-          path: '/f-menuBar',
+          path: '/menu',
           children: [
             _i70.RouteConfig(
               '#redirect',
@@ -801,6 +801,11 @@ class AppRouter extends _i70.RootStackRouter {
             _i70.RouteConfig(
               ProductAdd.name,
               path: 'product-add',
+              parent: FMenuBar.name,
+            ),
+            _i70.RouteConfig(
+              reports1.name,
+              path: 'reports1',
               parent: FMenuBar.name,
             ),
           ],
@@ -1683,4 +1688,16 @@ class ProductAdd extends _i70.PageRouteInfo<void> {
         );
 
   static const String name = 'ProductAdd';
+}
+
+/// generated route for
+/// [_i74.ProductAdd]
+class reports1 extends _i70.PageRouteInfo<void> {
+  const reports1()
+      : super(
+    reports1.name,
+    path: 'reports1',
+  );
+
+  static const String name = 'reports1';
 }

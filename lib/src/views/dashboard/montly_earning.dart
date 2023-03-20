@@ -156,25 +156,25 @@ class _MonthlyearningState extends State<Monthlyearning> {
         text = 'Jan';
         break;
       case 1:
-        text = 'Feb';
+        text = 'Fév';
         break;
       case 2:
         text = 'Mar';
         break;
       case 3:
-        text = 'Apr';
+        text = 'Avr';
         break;
       case 4:
-        text = 'May';
+        text = 'Peut';
         break;
       case 5:
-        text = 'Jun';
+        text = 'Juin';
         break;
       case 6:
-        text = 'Jul';
+        text = 'juillet';
         break;
       case 7:
-        text = 'Aug';
+        text = 'Août';
         break;
       case 8:
         text = 'Sep';
@@ -186,7 +186,7 @@ class _MonthlyearningState extends State<Monthlyearning> {
         text = 'Nov';
         break;
       default:
-        text = 'Dec';
+        text = 'Déc';
         break;
     }
     return SideTitleWidget(
@@ -303,7 +303,7 @@ class _MonthlyearningState extends State<Monthlyearning> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ConstText.lightText(
-                text: Strings.monthlyEarning,
+                text: Strings.monthlyExpenses,
                 fontWeight: FontWeight.bold,
               ),
               FxBox.h24,
@@ -318,19 +318,19 @@ class _MonthlyearningState extends State<Monthlyearning> {
                           FxBox.h16,
                           Expanded(
                             child: _monthEarning(
-                              durationText: 'This month',
-                              salesAmount: '\u{20B9}25,234',
+                              durationText: 'Ce mois-ci',
+                              salesAmount: '0€',
                               descriptionText:
-                                  'Lorem Ipsum is simply dummy text.',
+                                  '',
                             ),
                           ),
                           FxBox.h16,
                           Expanded(
                             child: _monthEarning(
-                              durationText: 'Last month',
-                              salesAmount: '\u{20B9}76,321',
+                              durationText: 'Le mois dernier',
+                              salesAmount: '0€',
                               descriptionText:
-                                  'Lorem Ipsum is simply dummy text.',
+                                  '',
                             ),
                           ),
                         ],
@@ -347,19 +347,19 @@ class _MonthlyearningState extends State<Monthlyearning> {
                           FxBox.w32,
                           Expanded(
                             child: _monthEarning(
-                              durationText: 'This month',
-                              salesAmount: '\u{20B9}25,234',
+                              durationText: 'Ce mois-ci',
+                              salesAmount: '0€',
                               descriptionText:
-                                  'Lorem Ipsum is simply dummy text.',
+                                  '',
                             ),
                           ),
                           FxBox.w32,
                           Expanded(
                             child: _monthEarning(
-                              durationText: 'Last month',
-                              salesAmount: '\u{20B9}76,321',
+                              durationText: 'Le mois dernier',
+                              salesAmount: '0€',
                               descriptionText:
-                                  'Lorem Ipsum is simply dummy text.',
+                                  '',
                             ),
                           ),
                         ],

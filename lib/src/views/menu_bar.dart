@@ -38,17 +38,18 @@ class _MenuBarState extends State<FMenuBar> {
 
   Map<String, String> mainData = {
     Strings.dashboard: IconlyBroken.home,
-    // Strings.calendar: IconlyBroken.calendar,
-    // Strings.map: IconlyBroken.map,
+    Strings.category: IconlyBroken.drawer,
+    Strings.expense: IconlyBroken.calendar,
+    Strings.reports1: IconlyBroken.archive,
   };
 
-  Map<String, String> componentData = {
-    // Strings.uiElements: IconlyBroken.box,
-    // Strings.forms: IconlyBroken.forms,
-    // Strings.charts: IconlyBroken.charts,
-    // Strings.tables: IconlyBroken.tables,
-    Strings.eCommerce: IconlyBroken.eCommerce,
-  };
+  // Map<String, String> componentData = {
+  //   // Strings.uiElements: IconlyBroken.box,
+  //   // Strings.forms: IconlyBroken.forms,
+  //   // Strings.charts: IconlyBroken.charts,
+  //   // Strings.tables: IconlyBroken.tables,
+  //   // Strings.eCommerce: IconlyBroken.eCommerce,
+  // };
 
   // Map<String, String> extrasData = {
   //   Strings.authentication: IconlyBroken.archive,
@@ -56,52 +57,52 @@ class _MenuBarState extends State<FMenuBar> {
   //   Strings.extraPages: IconlyBroken.extraPages,
   // };
 
-  List<List<String>> componentsExpandList = [
-    // [
-    //   Strings.toast,
-    //   Strings.buttons,
-    //   Strings.rating,
-    //   Strings.badge,
-    //   Strings.alertDialog,
-    //   Strings.modal,
-    //   Strings.loader,
-    //   Strings.tabs,
-    //   Strings.carousel,
-    //   Strings.videoPlayer,
-    //   Strings.dragDrop,
-    //   Strings.datePicker,
-    // ],
-    // [
-    //   Strings.formElements,
-    //   Strings.formValidation,
-    //   Strings.formFileUpload,
-    //   Strings.formRepeater,
-    //   Strings.formWizard,
-    //   Strings.formMask,
-    // ],
-    // [Strings.morrisChart, Strings.chartistChart, Strings.chartJsChart],
-    // [
-    //   Strings.basicTable,
-    //   Strings.dataTable,
-    //   Strings.responsiveTable,
-    //   Strings.editableTable,
-    // ],
-    [
-      // Strings.eCommerceDashboard,
-      // Strings.products,
-      Strings.productAdd,
-      Strings.category,
-      // Strings.vender,
-      // Strings.customer,
-      // Strings.cart,
-      // Strings.payment,
-      // Strings.order,
-      // Strings.returnOrder,
-      // Strings.subscriber,
-      // Strings.coupons,
-      // Strings.returnCondition,
-    ],
-  ];
+  // List<List<String>> componentsExpandList = [
+  //   // [
+  //   //   Strings.toast,
+  //   //   Strings.buttons,
+  //   //   Strings.rating,
+  //   //   Strings.badge,
+  //   //   Strings.alertDialog,
+  //   //   Strings.modal,
+  //   //   Strings.loader,
+  //   //   Strings.tabs,
+  //   //   Strings.carousel,
+  //   //   Strings.videoPlayer,
+  //   //   Strings.dragDrop,
+  //   //   Strings.datePicker,
+  //   // ],
+  //   // [
+  //   //   Strings.formElements,
+  //   //   Strings.formValidation,
+  //   //   Strings.formFileUpload,
+  //   //   Strings.formRepeater,
+  //   //   Strings.formWizard,
+  //   //   Strings.formMask,
+  //   // ],
+  //   // [Strings.morrisChart, Strings.chartistChart, Strings.chartJsChart],
+  //   // [
+  //   //   Strings.basicTable,
+  //   //   Strings.dataTable,
+  //   //   Strings.responsiveTable,
+  //   //   Strings.editableTable,
+  //   // ],
+  //   [
+  //     // Strings.eCommerceDashboard,
+  //     // Strings.products,
+  //     Strings.productAdd,
+  //     Strings.category,
+  //     // Strings.vender,
+  //     // Strings.customer,
+  //     // Strings.cart,
+  //     // Strings.payment,
+  //     // Strings.order,
+  //     // Strings.returnOrder,
+  //     // Strings.subscriber,
+  //     // Strings.coupons,
+  //     // Strings.returnCondition,
+  //   ],
+  // ];
 
   List<List<String>> extrasExpandList = [
     [
@@ -208,6 +209,7 @@ class _MenuBarState extends State<FMenuBar> {
     EcommerceDashboard(),
     CartScreen(),
     ProductAdd(),
+    Datatable()
   ];
 
   // TextDirection _layout = TextDirection.ltr;
@@ -341,7 +343,7 @@ class _MenuBarState extends State<FMenuBar> {
                       height: double.infinity,
                       color: ColorConst.transparent,
                       child: Image.asset(
-                          isDark ? Images.lgDarkLogo : Images.lgLightLogo),
+                          isDark ? Images.cmLogo : Images.cmLogo),
                     ),
                   );
                 }
@@ -356,7 +358,7 @@ class _MenuBarState extends State<FMenuBar> {
                     color:
                         isDark ? ColorConst.transparent : ColorConst.drawerBG,
                     child: Image.asset(
-                      Images.smLogo,
+                      Images.cmLogo,
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -682,6 +684,7 @@ class _MenuBarState extends State<FMenuBar> {
           child: Divider(color: ColorConst.lightGrey),
         ),
         const DropdownMenuItem(
+
           value: 'Logout',
           child: Text(
             Strings.logout,
@@ -734,13 +737,13 @@ class _MenuBarState extends State<FMenuBar> {
                   ),
                   // components
                   // if (value) _menuHeading(Strings.components),
-                  _menuList(
-                    tabsRouter: tabsRouter,
-                    items: componentData,
-                    isExpanded: true,
-                    children: componentsExpandList,
-                    isopen: value,
-                  ),
+                  // _menuList(
+                  //   tabsRouter: tabsRouter,
+                  //   items: componentData,
+                  //   isExpanded: true,
+                  //   children: componentsExpandList,
+                  //   isopen: value,
+                  // ),
                   // _menuList(
                   //   tabsRouter: tabsRouter,
                   //   items: extrasData,

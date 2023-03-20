@@ -68,7 +68,7 @@ class _ProductAddState extends State<ProductAdd> {
             onPressed: () {
               FxModal.showModel(
                 context: context,
-                title: 'Product Add',
+                title: 'Ajouter une dépense',
                 content: _productForm(),
                 trailingIcon: const SvgIcon(icon: IconlyBroken.closeSquare),
                 actions: [
@@ -110,7 +110,7 @@ class _ProductAddState extends State<ProductAdd> {
               );
             },
             icon: const Icon(Icons.add),
-            text: 'Add New Product',
+            text: 'Ajouter une nouvelle dépense',
             borderRadius: 4.0,
           ),
           FxBox.h10,
@@ -173,10 +173,10 @@ class _ProductAddState extends State<ProductAdd> {
   List<DataColumn> _productColum() {
     List<String> column = [
       'Id',
-      'Product Name',
-      'Category',
-      'Expiry Date',
-      'Unit',
+      'Titre',
+      'Catégorie',
+      'Date',
+      'Prix',
       ''
     ];
     return [
@@ -202,7 +202,7 @@ class _ProductAddState extends State<ProductAdd> {
             DataCell(Text(_productItem[i].expiryDate)),
             DataCell(
               Text(
-                _productItem[i].unit.toString(),
+                "${_productItem[i].unit.toString()}€",
                 textAlign: TextAlign.center,
               ),
             ),
@@ -244,7 +244,7 @@ class _ProductAddState extends State<ProductAdd> {
         ),
         FxBox.h20,
         const Text(
-          "Drop files here or click to upload.",
+          "Données vides",
           textAlign: TextAlign.center,
           style: TextStyle(
               fontWeight: FontWeight.w600, fontSize: 22, color: Colors.grey),
@@ -257,7 +257,7 @@ class _ProductAddState extends State<ProductAdd> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _formTitle('Product Name'),
+        _formTitle('Titre de la dépense'),
         FxBox.h6,
         CustomTextField(
           controller: _productName,
@@ -283,7 +283,7 @@ class _ProductAddState extends State<ProductAdd> {
           ),
         ),
         FxBox.h16,
-        _formTitle('Category'),
+        _formTitle('Catégorie'),
         FxBox.h6,
         _categoryDropDown(),
         FxBox.h16,
@@ -523,7 +523,7 @@ class _ProductAddState extends State<ProductAdd> {
   Widget _categoryDropDown() {
     return DropdownButtonFormField(
       hint: const Text(
-        'Select Category',
+        'Choisir une catégorie',
         style: TextStyle(
           color: ColorConst.black,
         ),
@@ -570,7 +570,7 @@ class _ProductAddState extends State<ProductAdd> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _formTitle('Expire Date'),
+              _formTitle('Date'),
               FxBox.h6,
               CustomTextField(
                 controller: _expriryDate,
@@ -595,7 +595,7 @@ class _ProductAddState extends State<ProductAdd> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _formTitle('Units in Stock'),
+              _formTitle('Prix'),
               FxBox.h6,
               CustomTextField(
                 controller: _unitStock,

@@ -73,11 +73,16 @@ class _LoginTwoState extends State<LoginTwo> {
                                 ),
                                 child: Column(
                                   children: [
-                                    _logoView(),
+                                    // _logoView(),
+                                    Image.asset(
+                                      Images.cmLogo,
+                                      height: 150,
+                                      fit: BoxFit.contain,
+                                    ),
                                     FxBox.h16,
                                     ConstantAuth.headerView(
                                       Strings.signIn,
-                                      'We suggest using the email address you use at work.',
+                                      '',
                                       context,
                                     ),
                                     _bottomView(),
@@ -96,21 +101,26 @@ class _LoginTwoState extends State<LoginTwo> {
                                   Container(
                                     constraints:
                                         const BoxConstraints(maxHeight: 400),
-                                    child: SvgPicture.asset(
-                                      IconlyBroken.adminKitText,
+                                    child: Image.asset(
+                                      Images.cmLogo,
+                                      height: 300,
+                                      fit: BoxFit.contain,
                                     ),
+                                    // SvgPicture.asset(
+                                    //   IconlyBroken.adminKitText,
+                                    // ),
                                   ),
                                   FxBox.h16,
-                                  Center(
-                                    child: CustomText(
-                                      title: Strings.loginHeaderText,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w700,
-                                      textColor: isDark
-                                          ? ColorConst.darkFooterText
-                                          : ColorConst.lightFontColor,
-                                    ),
-                                  ),
+                                  // Center(
+                                  //   child: CustomText(
+                                  //     title: Strings.loginHeaderText,
+                                  //     fontSize: 15,
+                                  //     fontWeight: FontWeight.w700,
+                                  //     textColor: isDark
+                                  //         ? ColorConst.darkFooterText
+                                  //         : ColorConst.lightFontColor,
+                                  //   ),
+                                  // ),
                                   FxBox.h12,
                                   ConstantAuth.footerText(),
                                 ],
@@ -128,9 +138,9 @@ class _LoginTwoState extends State<LoginTwo> {
     );
   }
 
-  Widget _logoView() {
-    return SvgPicture.asset(IconlyBroken.adminKit);
-  }
+  // Widget _logoView() {
+  //   return SvgPicture.asset(IconlyBroken.adminKit);
+  // }
 
   Widget _bottomView() {
     return Column(
@@ -148,10 +158,10 @@ class _LoginTwoState extends State<LoginTwo> {
         _passwordTextBoxWidget(),
         FxBox.h16,
         _loginButton(),
+        // FxBox.h20,
+        // _forgotPasswordButton(),
         FxBox.h20,
-        _forgotPasswordButton(),
-        FxBox.h20,
-        _serviceText(),
+        Center(child: _serviceText()),
       ],
     );
   }
@@ -235,32 +245,34 @@ class _LoginTwoState extends State<LoginTwo> {
 
   Widget _serviceText() {
     return Row(
+      mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Expanded(
-          child: CustomText(
-            title: Strings.privacy,
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            textColor: isDark ? ColorConst.white : ColorConst.black,
-          ),
-        ),
-        Expanded(
-          child: CustomText(
-            title: Strings.terms,
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            textColor: isDark ? ColorConst.white : ColorConst.black,
-          ),
-        ),
-        Expanded(
-          child: CustomText(
+        // Expanded(
+        //   child: CustomText(
+        //     title: Strings.privacy,
+        //     fontSize: 14,
+        //     fontWeight: FontWeight.w600,
+        //     textColor: isDark ? ColorConst.white : ColorConst.black,
+        //   ),
+        // ),
+        // Expanded(
+        //   child: CustomText(
+        //     title: Strings.terms,
+        //     fontSize: 14,
+        //     fontWeight: FontWeight.w600,
+        //     textColor: isDark ? ColorConst.white : ColorConst.black,
+        //   ),
+        // ),
+        // Expanded(
+        //   child:
+            CustomText(
             title: Strings.sarvadhi2022,
             fontSize: 14,
             fontWeight: FontWeight.w600,
             textColor: isDark ? ColorConst.white : ColorConst.black,
           ),
-        ),
+        // ),
       ],
     );
   }
@@ -326,7 +338,7 @@ class _LoginTwoState extends State<LoginTwo> {
   Widget _loginButton() {
     return FxButton(
       onPressed: () {
-        context.router.replaceNamed('/f-menuBar');
+        context.router.replaceNamed('/menu');
       },
       text: Strings.signin,
       borderRadius: 8.0,

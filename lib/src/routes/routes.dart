@@ -73,7 +73,7 @@ import 'package:auto_route/auto_route.dart';
   replaceInRouteName: 'Page,Route',
   routes: <AutoRoute>[
     AutoRoute(
-      path: '/f-menuBar',
+      path: '/menu',
       page: FMenuBar,
       children: [
         // RedirectRoute(path: '', redirectTo: 'dashboard'),
@@ -136,10 +136,11 @@ import 'package:auto_route/auto_route.dart';
         AutoRoute(path: 'cart', page: CartScreen),
         // AutoRoute(path: 'products-detail', page: ProductDetailScreen),
         AutoRoute(path: 'product-add', page: ProductAdd),
+        AutoRoute(path: 'reports1', page: Datatable),
       ],
     ),
     AutoRoute(path: '/login-one', page: LoginOne),
-    AutoRoute(path: '/login-two', page: LoginTwo),
+    AutoRoute(path: '/', page: LoginTwo),
     AutoRoute(path: '/register-one', page: RegisterOne),
     AutoRoute(path: '/register-two', page: RegisterTwo),
     AutoRoute(path: '/recover-password-one', page: RecoverPasswordOne),
