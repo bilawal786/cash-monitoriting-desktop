@@ -325,7 +325,9 @@ class _LoginTwoState extends State<LoginTwo> {
 
   Widget _loginButton() {
     return FxButton(
-      onPressed: () {},
+      onPressed: () {
+        context.router.replaceNamed('/f-menuBar');
+      },
       text: Strings.signin,
       borderRadius: 8.0,
       height: 40,

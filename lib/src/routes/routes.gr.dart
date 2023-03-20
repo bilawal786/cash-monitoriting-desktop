@@ -514,7 +514,7 @@ class AppRouter extends _i70.RootStackRouter {
   List<_i70.RouteConfig> get routes => [
         _i70.RouteConfig(
           FMenuBar.name,
-          path: '/',
+          path: '/f-menuBar',
           children: [
             _i70.RouteConfig(
               '#redirect',
@@ -811,7 +811,7 @@ class AppRouter extends _i70.RootStackRouter {
         ),
         _i70.RouteConfig(
           LoginTwo.name,
-          path: '/login-two',
+          path: '/',
         ),
         _i70.RouteConfig(
           RegisterOne.name,
