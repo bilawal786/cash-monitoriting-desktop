@@ -257,6 +257,7 @@ class Strings {
   static const String close = 'Fermer';
   // static const String saveChange = 'Save changes';
   static const String saveChange = 'Sauvegarder';
+  static const String noDataFound = 'Aucune donnée disponible...';
 
   // table
   static const String dartTable = 'Dark';

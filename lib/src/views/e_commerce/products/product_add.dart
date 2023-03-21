@@ -61,72 +61,78 @@ class _ProductAddState extends State<ProductAdd> {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.40,
       width: double.infinity,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          FxButton(
-            onPressed: () {
-              FxModal.showModel(
-                context: context,
-                title: 'Ajouter une dépense',
-                content: _productForm(),
-                trailingIcon: const SvgIcon(icon: IconlyBroken.closeSquare),
-                actions: [
-                  FxButton(
-                    onPressed: () => Navigator.pop(context),
-                    text: Strings.close,
-                    buttonType: ButtonType.secondary,
-                  ),
-                  ValueListenableBuilder<String>(
-                    valueListenable: _categorySelected,
-                    builder: (context, value, child) {
-                      return FxButton(
-                        onPressed: () {
-                          Navigator.pop(context);
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            FxButton(
+              onPressed: () {
+                FxModal.showModel(
+                  context: context,
+                  title: 'Ajouter une dépense',
+                  content: _productForm(),
+                  trailingIcon: const SvgIcon(icon: IconlyBroken.closeSquare),
+                  actions: [
+                    FxButton(
+                      onPressed: () => Navigator.pop(context),
+                      text: Strings.close,
+                      buttonType: ButtonType.secondary,
+                    ),
+                    ValueListenableBuilder<String>(
+                      valueListenable: _categorySelected,
+                      builder: (context, value, child) {
+                        return FxButton(
+                          onPressed: () {
+                            Navigator.pop(context);
 
-                          setState(
-                            () {
-                              _productItem.add(
-                                ProductModel(
-                                  id: 3,
-                                  product: _productName.text,
-                                  category: value,
-                                  expiryDate: _expriryDate.text,
-                                  unit: int.parse(_unitStock.text),
-                                ),
-                              );
+                            setState(
+                              () {
+                                _productItem.add(
+                                  ProductModel(
+                                    id: 3,
+                                    product: _productName.text,
+                                    category: value,
+                                    expiryDate: _expriryDate.text,
+                                    unit: int.parse(_unitStock.text),
+                                  ),
+                                );
 
-                              _productName.clear();
-                              _unitStock.clear();
-                            },
-                          );
-                        },
-                        text: Strings.saveChange,
-                      );
-                    },
-                  ),
-                ],
-                modelType: ModalType.normal,
-              );
-            },
-            icon: const Icon(Icons.add),
-            text: 'Ajouter une nouvelle dépense',
-            borderRadius: 4.0,
-          ),
-          FxBox.h10,
-          Card(
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(8.0),
+                                _productName.clear();
+                                _unitStock.clear();
+                              },
+                            );
+                          },
+                          text: Strings.saveChange,
+                        );
+                      },
+                    ),
+                  ],
+                  modelType: ModalType.normal,
+                );
+              },
+              icon: const Icon(Icons.add),
+              text: 'Ajouter une nouvelle dépense',
+              borderRadius: 4.0,
+            ),
+            FxBox.h10,
+
+            Card(
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(8.0),
+                ),
+              ),
+              child: _productItem.isEmpty ? Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                  child: const Text(Strings.noDataFound, style: TextStyle(fontSize: 14,),textAlign: TextAlign.center,),) : DataTable3(
+                minWidth: 1100,
+                columns: _productColum(),
+                rows: _productRow(),
               ),
             ),
-            child: DataTable3(
-              minWidth: 1100,
-              columns: _productColum(),
-              rows: _productRow(),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
 
@@ -292,233 +298,233 @@ class _ProductAddState extends State<ProductAdd> {
     );
   }
 
-  Widget _pickDropContainer(Size size) {
-    return GestureDetector(
-      onTap: () async {
-        FilePickerResult? file =
-            await FilePicker.platform.pickFiles(allowMultiple: false);
-        if (file != null) {
-          XFile files = XFile(file.files.first.path!);
-          _dropFile(files);
-        }
-      },
-      child: Container(
-        margin: Responsive.isWeb(context)
-            ? const EdgeInsets.all(24.0)
-            : EdgeInsets.zero,
-        height: size.height * 0.30,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12.0),
-          color: Theme.of(context).brightness == Brightness.dark
-              ? Colors.black
-              : Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? Colors.white.withOpacity(0.4)
-                  : Colors.black.withOpacity(0.1),
-              spreadRadius: 0.0,
-              blurRadius: 3.0,
-              // offset: const Offset(5.0, 5.0),
-            ),
-          ],
-        ),
-        child: BlocBuilder<FormUploadFileBloc, FormUploadFileState>(
-          builder: (context, state) {
-            return Stack(
-              alignment: Alignment.center,
-              clipBehavior: Clip.antiAlias,
-              children: [
-                DropTarget(
-                  // operation: DragOperation.copy,
-                  // onCreated: (controller) =>
-                  //     _controller = controller,
-                  // onLoaded: () {},
-                  // onHover: () {},
-                  // onLeave: () {},
-                  // onDropMultiple: (value) async {
-                  //   _dropFile(value!);
-                  // },
-                  child: SingleChildScrollView(
-                    controller: ScrollController(),
-                    child: state.when(
-                      initial: () => _emptyView(),
-                      fileSuccess: (filesList) => filesList.isEmpty
-                          ? _emptyView()
-                          : _hasDataView(filesList),
-                    ),
-                  ),
-                  onDragDone: (details) {
-                    _dropFile(details.files.first);
-                  },
-                ),
-              ],
-            );
-          },
-        ),
-      ),
-    );
-  }
-
-  Widget _hasDataView(List<dynamic> fileData) {
-    return Wrap(
-      runSpacing: 30.0,
-      spacing: 30.0,
-      children: fileData.map(
-        (e) {
-          return FutureBuilder<Map<String, dynamic>>(
-            future: _fileData(e),
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                return FxBox.shrink;
-              }
-              final size = snapshot.data!['size'];
-              final fileType = snapshot.data!['mime'];
-              final isImage = fileType!.startsWith('image') ? true : false;
-              return FxHover(builder: (isHover) {
-                return Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    Container(
-                      height: 120,
-                      width: 120,
-                      decoration: BoxDecoration(
-                        image: isImage
-                            ? DecorationImage(
-                                image: MemoryImage(snapshot.data!['bytes']),
-                                fit: BoxFit.cover,
-                              )
-                            : null,
-                        color: isDark
-                            ? ColorConst.lightFontColor
-                            : ColorConst.file,
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      child: isImage
-                          ? ClipRRect(
-                              borderRadius: BorderRadius.circular(20.0),
-                              child: BackdropFilter(
-                                  filter: isHover
-                                      ? ImageFilter.blur(sigmaX: 10, sigmaY: 10)
-                                      : ImageFilter.blur(
-                                          sigmaX: 0.1, sigmaY: 0.1),
-                                  child: isHover
-                                      ? _fileDetailView(
-                                          size,
-                                          snapshot.data!['name'],
-                                        )
-                                      : null),
-                            )
-                          : _fileDetailView(size, snapshot.data!['name']),
-                    ),
-                    Positioned(
-                      right: 0.0,
-                      child: InkWell(
-                        hoverColor: Colors.transparent,
-                        splashColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () {
-                          isExcelFile = false;
-                          List<XFile> tempList = _filesList.toList();
-                          tempList.removeAt(fileData.indexOf(e));
-                          _filesList = tempList;
-                          _formUploadFileBloc
-                              .add(FormUploadFileEvent.addFile(_filesList));
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.all(4.0),
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                          ),
-                          child: const SvgIcon(
-                            icon: IconlyBroken.closeSquare,
-                            size: 14.0,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              });
-            },
-          );
-        },
-      ).toList(),
-    );
-  }
-
-  Widget _fileDetailView(String size, String name) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 6.4,
-          ),
-          color: ColorConst.white.withOpacity(0.4),
-          child: Text(
-            size,
-            style: const TextStyle(
-              fontSize: 17,
-              fontWeight: FontWeight.w500,
-              color: ColorConst.black,
-            ),
-          ),
-        ),
-        FxBox.h12,
-        Container(
-          margin: const EdgeInsets.symmetric(
-            horizontal: 13.0,
-          ),
-          padding: const EdgeInsets.symmetric(
-            horizontal: 5.2,
-          ),
-          color: ColorConst.white.withOpacity(0.4),
-          child: Text(
-            name,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-              fontSize: 14,
-              color: ColorConst.black,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Future<void> _dropFile(XFile files) async {
-    isExcelFile = false;
-    _filesList.clear();
-
-    await _fileData(files);
-    _filesList.add(files);
-
-    bytes = await files.readAsBytes();
-    if (files.path.split('.').last == 'xlsx') {
-      isExcelFile = true;
-
-      _formUploadFileBloc.add(FormUploadFileEvent.addFile(_filesList));
-    }
-  }
-
-  Future<Map<String, dynamic>> _fileData(XFile file) async {
-    return {
-      'name': file.path.split('/').last,
-      'size': await _getFileSize(file),
-      'mime': lookupMimeType(file.path),
-      'bytes': await file.readAsBytes(),
-    };
-  }
-
-  Future<String> _getFileSize(XFile file) async {
-    if (await file.length() / 1024 <= 1000) {
-      return '${(await file.length() / 1024).toStringAsFixed(2)} KB';
-    } else {
-      return '${((await file.length() / 1024) / 1024).toStringAsFixed(2)} MB';
-    }
-  }
+  // Widget _pickDropContainer(Size size) {
+  //   return GestureDetector(
+  //     onTap: () async {
+  //       FilePickerResult? file =
+  //           await FilePicker.platform.pickFiles(allowMultiple: false);
+  //       if (file != null) {
+  //         XFile files = XFile(file.files.first.path!);
+  //         _dropFile(files);
+  //       }
+  //     },
+  //     child: Container(
+  //       margin: Responsive.isWeb(context)
+  //           ? const EdgeInsets.all(24.0)
+  //           : EdgeInsets.zero,
+  //       height: size.height * 0.30,
+  //       width: double.infinity,
+  //       decoration: BoxDecoration(
+  //         borderRadius: BorderRadius.circular(12.0),
+  //         color: Theme.of(context).brightness == Brightness.dark
+  //             ? Colors.black
+  //             : Colors.white,
+  //         boxShadow: [
+  //           BoxShadow(
+  //             color: Theme.of(context).brightness == Brightness.dark
+  //                 ? Colors.white.withOpacity(0.4)
+  //                 : Colors.black.withOpacity(0.1),
+  //             spreadRadius: 0.0,
+  //             blurRadius: 3.0,
+  //             // offset: const Offset(5.0, 5.0),
+  //           ),
+  //         ],
+  //       ),
+  //       child: BlocBuilder<FormUploadFileBloc, FormUploadFileState>(
+  //         builder: (context, state) {
+  //           return Stack(
+  //             alignment: Alignment.center,
+  //             clipBehavior: Clip.antiAlias,
+  //             children: [
+  //               DropTarget(
+  //                 // operation: DragOperation.copy,
+  //                 // onCreated: (controller) =>
+  //                 //     _controller = controller,
+  //                 // onLoaded: () {},
+  //                 // onHover: () {},
+  //                 // onLeave: () {},
+  //                 // onDropMultiple: (value) async {
+  //                 //   _dropFile(value!);
+  //                 // },
+  //                 child: SingleChildScrollView(
+  //                   controller: ScrollController(),
+  //                   child: state.when(
+  //                     initial: () => _emptyView(),
+  //                     fileSuccess: (filesList) => filesList.isEmpty
+  //                         ? _emptyView()
+  //                         : _hasDataView(filesList),
+  //                   ),
+  //                 ),
+  //                 onDragDone: (details) {
+  //                   _dropFile(details.files.first);
+  //                 },
+  //               ),
+  //             ],
+  //           );
+  //         },
+  //       ),
+  //     ),
+  //   );
+  // }
+  //
+  // Widget _hasDataView(List<dynamic> fileData) {
+  //   return Wrap(
+  //     runSpacing: 30.0,
+  //     spacing: 30.0,
+  //     children: fileData.map(
+  //       (e) {
+  //         return FutureBuilder<Map<String, dynamic>>(
+  //           future: _fileData(e),
+  //           builder: (context, snapshot) {
+  //             if (!snapshot.hasData) {
+  //               return FxBox.shrink;
+  //             }
+  //             final size = snapshot.data!['size'];
+  //             final fileType = snapshot.data!['mime'];
+  //             final isImage = fileType!.startsWith('image') ? true : false;
+  //             return FxHover(builder: (isHover) {
+  //               return Stack(
+  //                 clipBehavior: Clip.none,
+  //                 children: [
+  //                   Container(
+  //                     height: 120,
+  //                     width: 120,
+  //                     decoration: BoxDecoration(
+  //                       image: isImage
+  //                           ? DecorationImage(
+  //                               image: MemoryImage(snapshot.data!['bytes']),
+  //                               fit: BoxFit.cover,
+  //                             )
+  //                           : null,
+  //                       color: isDark
+  //                           ? ColorConst.lightFontColor
+  //                           : ColorConst.file,
+  //                       borderRadius: BorderRadius.circular(20.0),
+  //                     ),
+  //                     child: isImage
+  //                         ? ClipRRect(
+  //                             borderRadius: BorderRadius.circular(20.0),
+  //                             child: BackdropFilter(
+  //                                 filter: isHover
+  //                                     ? ImageFilter.blur(sigmaX: 10, sigmaY: 10)
+  //                                     : ImageFilter.blur(
+  //                                         sigmaX: 0.1, sigmaY: 0.1),
+  //                                 child: isHover
+  //                                     ? _fileDetailView(
+  //                                         size,
+  //                                         snapshot.data!['name'],
+  //                                       )
+  //                                     : null),
+  //                           )
+  //                         : _fileDetailView(size, snapshot.data!['name']),
+  //                   ),
+  //                   Positioned(
+  //                     right: 0.0,
+  //                     child: InkWell(
+  //                       hoverColor: Colors.transparent,
+  //                       splashColor: Colors.transparent,
+  //                       highlightColor: Colors.transparent,
+  //                       onTap: () {
+  //                         isExcelFile = false;
+  //                         List<XFile> tempList = _filesList.toList();
+  //                         tempList.removeAt(fileData.indexOf(e));
+  //                         _filesList = tempList;
+  //                         _formUploadFileBloc
+  //                             .add(FormUploadFileEvent.addFile(_filesList));
+  //                       },
+  //                       child: Container(
+  //                         padding: const EdgeInsets.all(4.0),
+  //                         decoration: const BoxDecoration(
+  //                           shape: BoxShape.circle,
+  //                         ),
+  //                         child: const SvgIcon(
+  //                           icon: IconlyBroken.closeSquare,
+  //                           size: 14.0,
+  //                         ),
+  //                       ),
+  //                     ),
+  //                   ),
+  //                 ],
+  //               );
+  //             });
+  //           },
+  //         );
+  //       },
+  //     ).toList(),
+  //   );
+  // }
+  //
+  // Widget _fileDetailView(String size, String name) {
+  //   return Column(
+  //     mainAxisAlignment: MainAxisAlignment.center,
+  //     children: [
+  //       Container(
+  //         padding: const EdgeInsets.symmetric(
+  //           horizontal: 6.4,
+  //         ),
+  //         color: ColorConst.white.withOpacity(0.4),
+  //         child: Text(
+  //           size,
+  //           style: const TextStyle(
+  //             fontSize: 17,
+  //             fontWeight: FontWeight.w500,
+  //             color: ColorConst.black,
+  //           ),
+  //         ),
+  //       ),
+  //       FxBox.h12,
+  //       Container(
+  //         margin: const EdgeInsets.symmetric(
+  //           horizontal: 13.0,
+  //         ),
+  //         padding: const EdgeInsets.symmetric(
+  //           horizontal: 5.2,
+  //         ),
+  //         color: ColorConst.white.withOpacity(0.4),
+  //         child: Text(
+  //           name,
+  //           overflow: TextOverflow.ellipsis,
+  //           style: const TextStyle(
+  //             fontSize: 14,
+  //             color: ColorConst.black,
+  //           ),
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
+  //
+  // Future<void> _dropFile(XFile files) async {
+  //   isExcelFile = false;
+  //   _filesList.clear();
+  //
+  //   await _fileData(files);
+  //   _filesList.add(files);
+  //
+  //   bytes = await files.readAsBytes();
+  //   if (files.path.split('.').last == 'xlsx') {
+  //     isExcelFile = true;
+  //
+  //     _formUploadFileBloc.add(FormUploadFileEvent.addFile(_filesList));
+  //   }
+  // }
+  //
+  // Future<Map<String, dynamic>> _fileData(XFile file) async {
+  //   return {
+  //     'name': file.path.split('/').last,
+  //     'size': await _getFileSize(file),
+  //     'mime': lookupMimeType(file.path),
+  //     'bytes': await file.readAsBytes(),
+  //   };
+  // }
+  //
+  // Future<String> _getFileSize(XFile file) async {
+  //   if (await file.length() / 1024 <= 1000) {
+  //     return '${(await file.length() / 1024).toStringAsFixed(2)} KB';
+  //   } else {
+  //     return '${((await file.length() / 1024) / 1024).toStringAsFixed(2)} MB';
+  //   }
+  // }
 
   Widget _categoryDropDown() {
     return DropdownButtonFormField(

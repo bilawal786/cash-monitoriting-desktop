@@ -44,218 +44,230 @@ class _ReportsState extends State<Reports> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Row(
-          children: <Widget>[
-            Expanded(
-              child: Container(
-                height: 40,
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: DropdownButton(
-                  value: defaultYearValue,
-                  underline: const SizedBox.shrink(),
-                  icon: const Icon(Icons.keyboard_arrow_down),
-                  items: _yearList.map((String items) {
-                    return DropdownMenuItem(
-                      value: items,
-                      child: Text(items),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      defaultYearValue = newValue!;
-                    });
-                  },
-                ),
-              ),
-            ),
-            FxBox.w24,
-            Expanded(
-              child: Container(
-                height: 40,
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: DropdownButton(
-                  value: defaultMonthValue,
-                  underline: const SizedBox.shrink(),
-                  icon: const Icon(Icons.keyboard_arrow_down),
-                  items: _monthList.map((String items) {
-                    return DropdownMenuItem(
-                      value: items,
-                      child: Text(items),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      defaultMonthValue = newValue!;
-                    });
-                  },
-                ),
-              ),
-            ),
-            FxBox.w24,
-            _getReport()
-          ],
-        ),
-        FxBox.h20,
-        Row(
-          children: <Widget>[
-            Expanded(
-              flex: 2,
-              child: Card(
+    return SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Expanded(
                 child: Container(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      ConstText.lightText(
-                        text: Strings.expenseReport,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      FxBox.h20,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: <Widget>[
-                          const Text("Id",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                            ),),
-                          FxBox.w28,
-                          const Text("Titre",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                            ),),
-                          FxBox.w28,
-                          const Text("Frais",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                            ),),
-                        ],
-                      ),
-                      FxBox.h16,
-                      ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: 2,
-                        itemBuilder: (_, index) => Column(
-                          children: <Widget>[
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: <Widget>[
-                                const Text("1",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                  ),),
-                                FxBox.w28,
-                                const Text("I Phone",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                  ),),
-                                FxBox.w28,
-                                const Text("2300€",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                  ),),
-                              ],
-                            ),
-                            FxBox.h16,
-                          ],
-                        ),),
-                    ],
+                  height: 40,
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: DropdownButton(
+                    value: defaultYearValue,
+                    isExpanded: true,
+                    underline: const SizedBox.shrink(),
+                    icon: const Icon(Icons.keyboard_arrow_down),
+                    items: _yearList.map((String items) {
+                      return DropdownMenuItem(
+                        value: items,
+                        child: Text(items),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        defaultYearValue = newValue!;
+                      });
+                    },
                   ),
                 ),
               ),
-            ),
-            FxBox.w32,
-            Expanded(
-              flex: 2,
-              child: Card(
-                child:  Container(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      ConstText.lightText(
-                        text: Strings.expenseCategoryReport,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      FxBox.h20,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children:  <Widget>[
-                          const Text("Id",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                            ),),
-                          FxBox.w28,
-                          const Text("Catégorie",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                            ),),
-                          FxBox.w28,
-                          const Text("Frais",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                            ),),
-                        ],
-                      ),
-                      FxBox.h16,
-                      ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: 2,
-                        itemBuilder: (_, index) => Column(
-                          children: <Widget>[
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: <Widget>[
-                                const Text("1",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                  ),),
-                                FxBox.w28,
-                                const Text("I Phone",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                  ),),
-                                FxBox.w28,
-                                const Text("2300€",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                  ),),
-                              ],
-                            ),
-                            FxBox.h16,
-                          ],
-                        ),),
-                    ],
+              FxBox.w24,
+              Expanded(
+                child: Container(
+                  height: 40,
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: DropdownButton(
+                    value: defaultMonthValue,
+                    isExpanded: true,
+                    underline: const SizedBox.shrink(),
+                    icon: const Icon(Icons.keyboard_arrow_down),
+                    items: _monthList.map((String items) {
+                      return DropdownMenuItem(
+                        value: items,
+                        child: Text(items),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        defaultMonthValue = newValue!;
+                      });
+                    },
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
-      ],
+              FxBox.w24,
+              _getReport()
+            ],
+          ),
+          FxBox.h20,
+          Row(
+            children: <Widget>[
+              Expanded(
+                flex: 2,
+                child: Card(
+                  child: Container(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        const Text(Strings.expenseReport,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            overflow: TextOverflow.ellipsis
+                          ),),
+                        FxBox.h20,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: <Widget>[
+                            const Text("Id",
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),),
+                            FxBox.w28,
+                            const Text("Titre",
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),),
+                            FxBox.w28,
+                            const Text("Frais",
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),),
+                          ],
+                        ),
+                        FxBox.h16,
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: 2,
+                          itemBuilder: (_, index) => Column(
+                            children: <Widget>[
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  const Text("1",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                    ),),
+                                  FxBox.w28,
+                                  const Text("I Phone",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                    ),),
+                                  FxBox.w28,
+                                  const Text("2300€",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                    ),),
+                                ],
+                              ),
+                              FxBox.h16,
+                            ],
+                          ),),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              FxBox.w32,
+              Expanded(
+                flex: 2,
+                child: Card(
+                  child:  Container(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        // ConstText.lightText(
+                        //   text: Strings.expenseCategoryReport,
+                        //   fontWeight: FontWeight.bold,
+                        // ),
+                        const Text(Strings.expenseCategoryReport,
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              overflow: TextOverflow.ellipsis
+                          ),),
+                        FxBox.h20,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children:  <Widget>[
+                            const Text("Id",
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),),
+                            FxBox.w28,
+                            const Text("Catégorie",
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),),
+                            FxBox.w28,
+                            const Text("Frais",
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),),
+                          ],
+                        ),
+                        FxBox.h16,
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: 2,
+                          itemBuilder: (_, index) => Column(
+                            children: <Widget>[
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  const Text("1",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                    ),),
+                                  FxBox.w28,
+                                  const Text("I Phone",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                    ),),
+                                  FxBox.w28,
+                                  const Text("2300€",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                    ),),
+                                ],
+                              ),
+                              FxBox.h16,
+                            ],
+                          ),),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
