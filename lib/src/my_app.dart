@@ -6,6 +6,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
+
+import 'provider/auth_provider/login_provider.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -31,33 +34,38 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => themeModeBloc,
-      child: BlocBuilder<ThemeModeBloc, ThemeModeState>(
-        builder: (context, state) {
-          return state.when(
-            initial: () => const SizedBox.shrink(),
-            success: (themeMode) {
-              return MaterialApp.router(
-                routerDelegate: AutoRouterDelegate(_appRouter),
-          
-                routeInformationParser: _appRouter.defaultRouteParser(),
-                debugShowCheckedModeBanner: false,
-                theme: ThemeClass.themeData(themeMode, context),
-                scrollBehavior: const MaterialScrollBehavior().copyWith(
-                  dragDevices: {
-                    PointerDeviceKind.mouse,
-                    PointerDeviceKind.touch,
-                    PointerDeviceKind.stylus,
-                    PointerDeviceKind.trackpad,
-                    PointerDeviceKind.unknown
-                  },
-                ),
-                title: 'KONCRETIZ',
-              );
-            },
-          );
-        },
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_)=> LoginProvider()),
+      ],
+      child: BlocProvider(
+        create: (context) => themeModeBloc,
+        child: BlocBuilder<ThemeModeBloc, ThemeModeState>(
+          builder: (context, state) {
+            return state.when(
+              initial: () => const SizedBox.shrink(),
+              success: (themeMode) {
+                return MaterialApp.router(
+                  routerDelegate: AutoRouterDelegate(_appRouter),
+
+                  routeInformationParser: _appRouter.defaultRouteParser(),
+                  debugShowCheckedModeBanner: false,
+                  theme: ThemeClass.themeData(themeMode, context),
+                  scrollBehavior: const MaterialScrollBehavior().copyWith(
+                    dragDevices: {
+                      PointerDeviceKind.mouse,
+                      PointerDeviceKind.touch,
+                      PointerDeviceKind.stylus,
+                      PointerDeviceKind.trackpad,
+                      PointerDeviceKind.unknown
+                    },
+                  ),
+                  title: 'KONCRETIZ',
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }

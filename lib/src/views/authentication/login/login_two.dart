@@ -2,6 +2,7 @@ import 'package:admin_dashboard/src/constant/color.dart';
 import 'package:admin_dashboard/src/constant/icons.dart';
 import 'package:admin_dashboard/src/constant/image.dart';
 import 'package:admin_dashboard/src/constant/theme.dart';
+import 'package:admin_dashboard/src/provider/auth_provider/login_provider.dart';
 import 'package:admin_dashboard/src/routes/routes.gr.dart';
 import 'package:admin_dashboard/src/utils/responsive.dart';
 import 'package:admin_dashboard/src/views/authentication/constant_auth.dart';
@@ -13,6 +14,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutterx/flutterx.dart';
+import 'package:provider/provider.dart';
 
 class LoginTwo extends StatefulWidget {
   const LoginTwo({Key? key}) : super(key: key);
@@ -24,6 +26,7 @@ class LoginTwo extends StatefulWidget {
 class _LoginTwoState extends State<LoginTwo> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final _loginKey = GlobalKey<FormState>();
 
   // final CheckboxBloc _checkboxBloc = CheckboxBloc();
 
@@ -143,26 +146,29 @@ class _LoginTwoState extends State<LoginTwo> {
   // }
 
   Widget _bottomView() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      //mainAxisSize: MainAxisSize.min,
-      children: [
-        FxBox.h28,
-        ConstantAuth.labelView(Strings.emailstr),
-        FxBox.h8,
-        _usernameTextBoxWidget(),
-        FxBox.h16,
-        ConstantAuth.labelView(Strings.password),
-        FxBox.h8,
-        _passwordTextBoxWidget(),
-        FxBox.h16,
-        _loginButton(),
-        // FxBox.h20,
-        // _forgotPasswordButton(),
-        FxBox.h20,
-        Center(child: _serviceText()),
-      ],
+    return Form(
+      key: _loginKey,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        //mainAxisSize: MainAxisSize.min,
+        children: [
+          FxBox.h28,
+          ConstantAuth.labelView(Strings.emailstr),
+          FxBox.h8,
+          _usernameTextBoxWidget(),
+          FxBox.h16,
+          ConstantAuth.labelView(Strings.password),
+          FxBox.h8,
+          _passwordTextBoxWidget(),
+          FxBox.h16,
+          _loginButton(),
+          // FxBox.h20,
+          // _forgotPasswordButton(),
+          FxBox.h20,
+          Center(child: _serviceText()),
+        ],
+      ),
     );
   }
   // Widget _mainView() {
@@ -283,6 +289,12 @@ class _LoginTwoState extends State<LoginTwo> {
       onChanged: (String value) {},
       textCapitalization: TextCapitalization.none,
       textInputAction: TextInputAction.done,
+      validator: (v) {
+        if(v!.isEmpty){
+          return 'Le champ e-mail est vide';
+        }
+        return null;
+      },
       controller: _usernameController,
     );
   }
@@ -294,6 +306,12 @@ class _LoginTwoState extends State<LoginTwo> {
       onChanged: (String value) {},
       textCapitalization: TextCapitalization.none,
       textInputAction: TextInputAction.done,
+      validator: (v) {
+        if(v!.isEmpty){
+          return 'Le champ du mot de passe est vide';
+        }
+        return null;
+      },
       controller: _passwordController,
     );
   }
@@ -338,7 +356,14 @@ class _LoginTwoState extends State<LoginTwo> {
   Widget _loginButton() {
     return FxButton(
       onPressed: () {
-        context.router.replaceNamed('/menu');
+        final loginData = Provider.of<LoginProvider>(context,listen: false);
+        var isValid = _loginKey.currentState!.validate();
+        if(!isValid){
+          return;
+        }
+        _loginKey.currentState!.save();
+        // loginData.getLoginCheck();
+        loginData.loginApi(context, _usernameController.text, _passwordController.text);
       },
       text: Strings.signin,
       borderRadius: 8.0,
