@@ -514,7 +514,7 @@ class AppRouter extends _i70.RootStackRouter {
   List<_i70.RouteConfig> get routes => [
         _i70.RouteConfig(
           FMenuBar.name,
-          path: '/menu',
+          path: '/menu/',
           children: [
             _i70.RouteConfig(
               '#redirect',
@@ -867,7 +867,7 @@ class FMenuBar extends _i70.PageRouteInfo<void> {
   const FMenuBar({List<_i70.PageRouteInfo>? children})
       : super(
           FMenuBar.name,
-          path: '/',
+          path: '/menu/',
           initialChildren: children,
         );
 

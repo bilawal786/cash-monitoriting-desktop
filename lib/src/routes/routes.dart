@@ -73,7 +73,7 @@ import 'package:auto_route/auto_route.dart';
   replaceInRouteName: 'Page,Route',
   routes: <AutoRoute>[
     AutoRoute(
-      path: '/menu',
+      path: '/menu/',
       page: FMenuBar,
       children: [
         // RedirectRoute(path: '', redirectTo: 'dashboard'),

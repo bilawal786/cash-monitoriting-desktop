@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart'as http;
-
+import 'package:admin_dashboard/src/routes/routes.gr.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:admin_dashboard/src/constant/string.dart';
 import '../../../models/auth_model/auth_model.dart';
 
 class LoginProvider with ChangeNotifier {
@@ -25,6 +27,7 @@ class LoginProvider with ChangeNotifier {
     if(response.statusCode == 200 ){
       print("login api is working");
       authModel = authModelFromJson(response.body);
+      context.router.pushNamed('FMenuBar');
       notifyListeners();
     }else{
       print("login api is not working");
