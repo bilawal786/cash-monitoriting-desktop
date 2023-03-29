@@ -9,6 +9,7 @@ import 'package:admin_dashboard/src/provider/category_provider/category_provider
 import 'package:admin_dashboard/src/widget/datatable.dart';
 import 'package:admin_dashboard/src/widget/svg_icon.dart';
 import 'package:admin_dashboard/src/widget/textformfield.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterx/flutterx.dart';
 import 'package:provider/provider.dart';
@@ -80,7 +81,16 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 ConstrainedBox(
                   constraints:
                       const BoxConstraints(maxHeight: (56.0 * 10) + 72.0),
-                  child: extractCategory == null ? Text("No Data found") : DataTable3(
+                  child: extractCategory == null ? const CupertinoActivityIndicator(
+                    radius: 14,
+                    color: Colors.black,
+                  ) : extractCategory == [] ? const Center(
+                    child: Text("No Data found",
+                      style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      color: Colors.black,
+                    ),),
+                  ) :DataTable3(
                     showCheckboxColumn: false,
                     showBottomBorder: true,
                     columnSpacing: 20.0,
@@ -137,7 +147,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                               _statusBox(ColorConst.successDark, 'Active')),
                           DataCell(_editButton(i)),
                         ],
-                      ),]
+                      ),],
                       // DataRow(
                       //   onSelectChanged: (value) {
                       //     autoTabRouter!.setActiveIndex(41);
