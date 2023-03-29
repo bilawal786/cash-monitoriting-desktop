@@ -5,6 +5,7 @@ import 'package:http/http.dart'as http;
 import 'package:admin_dashboard/src/routes/routes.gr.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:admin_dashboard/src/constant/string.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../models/auth_model/auth_model.dart';
 
 class LoginProvider with ChangeNotifier {
@@ -29,6 +30,8 @@ class LoginProvider with ChangeNotifier {
     if(response.statusCode == 200 ){
       print("login api is working");
       authModel = authModelFromJson(response.body);
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('token', authModel!.success.token);
       isLogin = true;
       notifyListeners();
     }else{

@@ -5,11 +5,13 @@ import 'package:admin_dashboard/src/constant/image.dart';
 import 'package:admin_dashboard/src/constant/string.dart';
 import 'package:admin_dashboard/src/constant/text.dart';
 import 'package:admin_dashboard/src/constant/theme.dart';
+import 'package:admin_dashboard/src/provider/category_provider/category_provider.dart';
 import 'package:admin_dashboard/src/widget/datatable.dart';
 import 'package:admin_dashboard/src/widget/svg_icon.dart';
 import 'package:admin_dashboard/src/widget/textformfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterx/flutterx.dart';
+import 'package:provider/provider.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({Key? key}) : super(key: key);
@@ -34,8 +36,22 @@ class _CategoryScreenState extends State<CategoryScreen> {
     defaultValue = _statusList[0];
   }
 
+  var isInit = true;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    if(isInit){
+      Provider.of<CategoryProvider>(context).getCategoryApi();
+    }
+    isInit = false;
+  }
+
   @override
   Widget build(BuildContext context) {
+    final categoryData = Provider.of<CategoryProvider>(context,listen: false);
+    final extractCategory = categoryData.categoryModel;
     return Column(
       children: [
         _addNewCategory(),
@@ -64,7 +80,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 ConstrainedBox(
                   constraints:
                       const BoxConstraints(maxHeight: (56.0 * 10) + 72.0),
-                  child: DataTable3(
+                  child: extractCategory == null ? Text("No Data found") : DataTable3(
                     showCheckboxColumn: false,
                     showBottomBorder: true,
                     columnSpacing: 20.0,
@@ -108,26 +124,26 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       ),
                     ],
                     rows: [
+                      for(int i = 0; i < extractCategory.length; i++)...[
                       DataRow(
                         onSelectChanged: (value) {
-                          autoTabRouter!.setActiveIndex(41);
+                          // autoTabRouter!.setActiveIndex(41);
                         },
                         cells: [
-                          DataCell(_tableHeader('1')),
+                          DataCell(_tableHeader('${extractCategory[i].id} ')),
                           // DataCell(_tableRowImage(Images.men)),
-                          DataCell(_tableHeader('Men')),
+                          DataCell(_tableHeader('${extractCategory[i].name} Men')),
                           DataCell(
                               _statusBox(ColorConst.successDark, 'Active')),
                           DataCell(_editButton()),
                         ],
-                      ),
+                      ),]
                       // DataRow(
                       //   onSelectChanged: (value) {
                       //     autoTabRouter!.setActiveIndex(41);
                       //   },
                       //   cells: [
                       //     DataCell(_tableHeader('2')),
-                      //     DataCell(_tableRowImage(Images.women)),
                       //     DataCell(_tableHeader('Women')),
                       //     DataCell(
                       //         _statusBox(ColorConst.warningDark, 'Deactive')),
@@ -140,7 +156,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       //   },
                       //   cells: [
                       //     DataCell(_tableHeader('3')),
-                      //     DataCell(_tableRowImage(Images.electronic)),
+                      //     // DataCell(_tableRowImage(Images.electronic)),
                       //     DataCell(_tableHeader('Accessories')),
                       //     DataCell(
                       //         _statusBox(ColorConst.successDark, 'Active')),
@@ -153,7 +169,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       //   },
                       //   cells: [
                       //     DataCell(_tableHeader('4')),
-                      //     DataCell(_tableRowImage(Images.homeAndKitchen)),
+                      //     // DataCell(_tableRowImage(Images.homeAndKitchen)),
                       //     DataCell(_tableHeader('Home And Kitchen')),
                       //     DataCell(
                       //         _statusBox(ColorConst.successDark, 'Active')),
@@ -166,13 +182,14 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       //   },
                       //   cells: [
                       //     DataCell(_tableHeader('5')),
-                      //     DataCell(_tableRowImage(Images.entertainment)),
+                      //     // DataCell(_tableRowImage(Images.entertainment)),
                       //     DataCell(_tableHeader('Entertainment')),
                       //     DataCell(
                       //         _statusBox(ColorConst.successDark, 'Active')),
                       //     DataCell(_editButton()),
                       //   ],
                       // ),
+                      // _editButton
                     ],
                   ),
                 ),

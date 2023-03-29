@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 import 'provider/auth_provider/login_provider.dart';
+import 'provider/category_provider/category_provider.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -37,6 +38,7 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_)=> LoginProvider()),
+        ChangeNotifierProvider(create: (_)=> CategoryProvider()),
       ],
       child: BlocProvider(
         create: (context) => themeModeBloc,
