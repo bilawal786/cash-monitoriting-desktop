@@ -363,7 +363,9 @@ class _LoginTwoState extends State<LoginTwo> {
         }
         _loginKey.currentState!.save();
         // loginData.getLoginCheck();
-        loginData.loginApi(context, _usernameController.text, _passwordController.text);
+        loginData.loginApi(context, _usernameController.text, _passwordController.text).then((value) {
+          loginData.isLogin == true ? context.router.replaceNamed('/menu/') : null;
+        });
       },
       text: Strings.signin,
       borderRadius: 8.0,

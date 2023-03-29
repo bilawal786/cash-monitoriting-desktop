@@ -10,6 +10,8 @@ import '../../../models/auth_model/auth_model.dart';
 class LoginProvider with ChangeNotifier {
   AuthModel? authModel;
 
+  bool isLogin = false;
+
   Future<void> loginApi (context, email, pass) async {
     var response = await http.post(
       Uri.parse('https://cash-monitoring.ikaedigital.com/api/login'),
@@ -27,10 +29,11 @@ class LoginProvider with ChangeNotifier {
     if(response.statusCode == 200 ){
       print("login api is working");
       authModel = authModelFromJson(response.body);
-      context.router.pushNamed('FMenuBar');
+      isLogin = true;
       notifyListeners();
     }else{
       print("login api is not working");
+      print(response.body);
     }
 
   }
