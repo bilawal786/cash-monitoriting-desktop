@@ -81,9 +81,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 ConstrainedBox(
                   constraints:
                       const BoxConstraints(maxHeight: (56.0 * 10) + 72.0),
-                  child: extractCategory == null ? const CupertinoActivityIndicator(
-                    radius: 14,
-                    color: Colors.black,
+                  child: extractCategory == null ? const Center(
+                    child: CupertinoActivityIndicator(
+                      radius: 14,
+                      color: Colors.black,
+                    ),
                   ) : extractCategory == [] ? const Center(
                     child: Text("No Data found",
                       style: TextStyle(
