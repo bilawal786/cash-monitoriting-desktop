@@ -130,12 +130,12 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           // autoTabRouter!.setActiveIndex(41);
                         },
                         cells: [
-                          DataCell(_tableHeader('${extractCategory[i].id} ')),
+                          DataCell(_tableHeader('${extractCategory[i].id}')),
                           // DataCell(_tableRowImage(Images.men)),
-                          DataCell(_tableHeader('${extractCategory[i].name} Men')),
+                          DataCell(_tableHeader(extractCategory[i].name)),
                           DataCell(
                               _statusBox(ColorConst.successDark, 'Active')),
-                          DataCell(_editButton()),
+                          DataCell(_editButton(i)),
                         ],
                       ),]
                       // DataRow(
@@ -228,26 +228,27 @@ class _CategoryScreenState extends State<CategoryScreen> {
     );
   }
 
-  Widget _editButton() {
-    return Row(
-      children: [
-        IconButton(
-          onPressed: () {
-            isShow = !isShow;
-            currentImage = Images.men;
-            _categoryController.text = 'Men';
-            setState(() {});
-          },
-          icon: const Icon(Icons.mode_edit_rounded),
-        ),
-        IconButton(
-          onPressed: () {},
-          icon: Icon(
-            Icons.delete,
-            color: ColorConst.errorDark,
+  Widget _editButton(index) {
+    return Consumer<CategoryProvider>(
+      builder: (_,categoryData,__) => Row(
+        children: [
+          IconButton(
+            onPressed: () {
+              // currentImage = Images.men;
+              _categoryController.text = categoryData.categoryModel![index].name;
+              setState(() {});
+            },
+            icon: const Icon(Icons.mode_edit_rounded),
           ),
-        ),
-      ],
+          IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.delete,
+              color: ColorConst.errorDark,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -316,21 +317,20 @@ class _CategoryScreenState extends State<CategoryScreen> {
           ],
         ),
         const Spacer(),
-        FxButton(
-          height: 50,
-          onPressed: () async {
-            isShow = !isShow;
-            // currentImage = null;
-            // _categoryController.text = '';
-            setState(() {
-              print("status $defaultValue");
-              print("Input ${_categoryController.text}");
-            });
-          },
-          fullWidth: false,
-          color: ColorConst.primary,
-          minWidth: MediaQuery.of(context).size.width / 7,
-          text: 'Ajouter une catégorie',
+        Consumer<CategoryProvider>(
+          builder: (_,categoryData, __) => FxButton(
+            height: 50,
+            onPressed: () async {
+              categoryData.postCategoryApi(_categoryController.text).then((value) => setState((){
+                isShow = !isShow;
+                _categoryController.text ="";
+              }));
+            },
+            fullWidth: false,
+            color: ColorConst.primary,
+            minWidth: MediaQuery.of(context).size.width / 7,
+            text: 'Ajouter une catégorie',
+          ),
         ),
         FxBox.w24,
         FxButton(
