@@ -1,7 +1,6 @@
 // To parse this JSON data, do
 //
 //     final authModel = authModelFromJson(jsonString);
-
 import 'dart:convert';
 
 AuthModel authModelFromJson(String str) => AuthModel.fromJson(json.decode(str));
@@ -69,7 +68,7 @@ class User {
   final String address;
   final String city;
   final String country;
-  final dynamic purchased;
+  final bool purchased;
   final String image;
   final String companyName;
   final String companyAddress;
