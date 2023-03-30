@@ -19,7 +19,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   if (TargetPlatform.windows == defaultTargetPlatform ||
       TargetPlatform.macOS == defaultTargetPlatform) {
-    setWindowTitle('KONCRETIZ');
+    setWindowTitle('KONCEPT GROUP');
     setWindowMinSize(const Size(480, 360));
     setWindowMaxSize(Size.infinite);
   }

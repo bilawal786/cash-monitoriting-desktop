@@ -13,6 +13,13 @@ class LoginProvider with ChangeNotifier {
 
   bool isLogin = false;
 
+  bool? checkLoginApi;
+
+  loginApiCheck(){
+    checkLoginApi = false;
+    notifyListeners();
+  }
+
   Future<void> loginApi (context, email, pass) async {
     var response = await http.post(
       Uri.parse('https://cash-monitoring.ikaedigital.com/api/login'),
@@ -33,10 +40,13 @@ class LoginProvider with ChangeNotifier {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('token', authModel!.success.token);
       isLogin = true;
+      checkLoginApi = true;
       notifyListeners();
     }else{
       print("login api is not working");
-      print(response.body);
+      // print(response.body);
+      checkLoginApi = true;
+      notifyListeners();
     }
 
   }

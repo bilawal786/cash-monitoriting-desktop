@@ -3,7 +3,7 @@ class Images {
   static const String _assetPathCountry = 'assets/country/';
 
   static const String smLogo = '${_assetPath}logo-sm.png';
-  static const String cmLogo = '${_assetPath}logo-cm.png';
+  static const String cmLogo = '${_assetPath}logo_koncept.png';
   static const String lgLightLogo = '${_assetPath}logo-light-lg.png';
   static const String lgDarkLogo = '${_assetPath}logo-dark-lg.png';
 

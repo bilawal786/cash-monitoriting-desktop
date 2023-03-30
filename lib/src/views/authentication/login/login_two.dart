@@ -11,6 +11,7 @@ import 'package:admin_dashboard/src/widget/custom_text_field.dart';
 import 'package:admin_dashboard/src/constant/string.dart';
 import 'package:admin_dashboard/src/utils/hover.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutterx/flutterx.dart';
@@ -162,7 +163,20 @@ class _LoginTwoState extends State<LoginTwo> {
           FxBox.h8,
           _passwordTextBoxWidget(),
           FxBox.h16,
-          _loginButton(),
+          Consumer<LoginProvider>(builder: (_,loginData,__)=> loginData.checkLoginApi == false ? Container(
+            height: 40,
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.primary,
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            constraints: BoxConstraints(
+              minWidth: MediaQuery.of(context).size.width,
+            ),
+            child: const CupertinoActivityIndicator(
+              color: Colors.white,
+              radius: 8,
+            ),
+          )  :  _loginButton()),
           // FxBox.h20,
           // _forgotPasswordButton(),
           FxBox.h20,
@@ -357,6 +371,7 @@ class _LoginTwoState extends State<LoginTwo> {
     return FxButton(
       onPressed: () {
         final loginData = Provider.of<LoginProvider>(context,listen: false);
+        loginData.loginApiCheck();
         var isValid = _loginKey.currentState!.validate();
         if(!isValid){
           return;

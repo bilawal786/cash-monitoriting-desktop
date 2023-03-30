@@ -4,45 +4,46 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart'as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../models/category_model/category_model.dart';
+import '../../../models/expense_model/expense_model.dart';
 import '../../widget/loading_progress_indicator.dart';
 
-class CategoryProvider with ChangeNotifier {
-  List<CategoryModel>? categoryModel;
+class ExpenseProvider with ChangeNotifier {
 
-  Future<void> getCategoryApi () async {
+  List<ExpenseModel>? expenseModel;
+
+  Future<void> getExpenseApi () async {
     final SharedPreferences sharePref = await SharedPreferences.getInstance();
     String? userToken = sharePref.getString('token');
     var response = await http.get(
-        Uri.parse('https://cash-monitoring.ikaedigital.com/api/category'),
-        headers: <String, String>{
+      Uri.parse('https://cash-monitoring.ikaedigital.com/api/expense'),
+      headers: <String, String>{
         'Accept': "application/json",
         'Content-Type': "application/json",
-          'Authorization': "Bearer $userToken"
-        },);
+        'Authorization': "Bearer $userToken"
+      },);
     if(response.statusCode == 200) {
-      debugPrint("Get Category Api is working");
-      categoryModel = categoryModelFromJson(response.body);
+      debugPrint("Get Expense Api is working");
+      expenseModel = expenseModelFromJson(response.body);
       notifyListeners();
     }
     else {
-      debugPrint("Get Category Api is not working");
+      debugPrint("Get Expense Api is not working");
     }
   }
 
+  bool? checkPostExpense;
 
-  bool? checkPostCategory;
-
-  postCategoryApiCheck(){
-    checkPostCategory = false;
+  postExpenseApiCheck(){
+    checkPostExpense = false;
     notifyListeners();
   }
 
-  Future<void> postCategoryApi (categoryTitle) async {
+
+  Future<void> postExpenseApi (title, categoryId, description, date, price) async {
     final SharedPreferences sharePref = await SharedPreferences.getInstance();
     String? userToken = sharePref.getString('token');
     var response = await http.post(
-      Uri.parse('https://cash-monitoring.ikaedigital.com/api/category'),
+      Uri.parse('https://cash-monitoring.ikaedigital.com/api/expense'),
       headers: <String, String>{
         'Accept': "application/json",
         'Content-Type': "application/json",
@@ -50,53 +51,50 @@ class CategoryProvider with ChangeNotifier {
       },
       body: jsonEncode(
         <String, String>{
-          'name': categoryTitle.toString()
+          'title': title.toString(),
+          'category_id':categoryId.toString(),
+          'description':description.toString(),
+          'date': date.toString(),
+          'price': price.toString(),
         },
       ),
     );
     if(response.statusCode == 200) {
-      debugPrint("post Category Api is working");
-      getCategoryApi();
-      checkPostCategory = true;
+      debugPrint("post Expense Api is working");
+      getExpenseApi();
+      checkPostExpense = true;
       notifyListeners();
     }
     else {
-      debugPrint("Post Category Api is not working");
-      checkPostCategory = true;
+      debugPrint("Post Expense Api is not working");
+      checkPostExpense = true;
       notifyListeners();
     }
+    // print(response.body);
   }
 
-  bool? deleteApiCheck;
 
-  checkDeleteApi (){
-    deleteApiCheck = false;
-    notifyListeners();
-  }
-
-  Future<void> deleteCategoryApi (context, id) async {
+  Future<void> deleteExpenseApi (context, id) async {
     showDialog(context: context,barrierDismissible: false, builder: (BuildContext context){
       return const LoadingProgressIndicator();
     });
     final SharedPreferences sharePref = await SharedPreferences.getInstance();
     String? userToken = sharePref.getString('token');
     var response = await http.delete(
-      Uri.parse('https://cash-monitoring.ikaedigital.com/api/category/$id'),
+      Uri.parse('https://cash-monitoring.ikaedigital.com/api/expense/$id'),
       headers: <String, String>{
         'Accept': "application/json",
         'Content-Type': "application/json",
         'Authorization': "Bearer $userToken"
       },);
     if(response.statusCode == 200) {
-      debugPrint("delete Category Api is working");
-      getCategoryApi();
+      debugPrint("delete Expense Api is working");
+      getExpenseApi();
       Navigator.of(context).pop();
-      // deleteApiCheck = true;
       notifyListeners();
     }
     else {
-      debugPrint("delete Category Api is not working");
-      // deleteApiCheck = true;
+      debugPrint("delete Expense Api is not working");
       Navigator.of(context).pop();
       notifyListeners();
     }
@@ -114,11 +112,11 @@ class CategoryProvider with ChangeNotifier {
   }
 
 
-  Future<void> updateCategoryApi (context, id, categoryTitle) async {
+  Future<void> updateExpenseApi (context, id, title, categoryId, description, date, price ) async {
     final SharedPreferences sharePref = await SharedPreferences.getInstance();
     String? userToken = sharePref.getString('token');
     var response = await http.put(
-      Uri.parse('https://cash-monitoring.ikaedigital.com/api/category/$id'),
+      Uri.parse('https://cash-monitoring.ikaedigital.com/api/expense/$id'),
       headers: <String, String>{
         'Accept': "application/json",
         'Content-Type': "application/json",
@@ -126,23 +124,26 @@ class CategoryProvider with ChangeNotifier {
       },
       body: jsonEncode(
         <String, String>{
-          'name': categoryTitle.toString()
+          'title': title.toString(),
+          'category_id':categoryId.toString(),
+          'description':description.toString(),
+          'date': date.toString(),
+          'price': price.toString(),
         },
       ),
     );
     if(response.statusCode == 200) {
       debugPrint("update Category Api is working");
-      getCategoryApi();
-      checkPostCategory = true;
+      getExpenseApi();
+      checkPostExpense = true;
       notifyListeners();
     }
     else {
       debugPrint("update Category Api is not working");
-      checkPostCategory = true;
+      checkPostExpense = true;
       notifyListeners();
     }
     print(response.body);
   }
-
 
 }

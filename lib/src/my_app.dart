@@ -1,4 +1,5 @@
 import 'package:admin_dashboard/src/constant/theme.dart';
+import 'package:admin_dashboard/src/provider/expense_provider/expense_provider.dart';
 import 'package:admin_dashboard/src/provider/theme/bloc/theme_mode_bloc.dart';
 import 'package:admin_dashboard/src/routes/routes.gr.dart';
 import 'package:admin_dashboard/src/utils/hive/hive.dart';
@@ -39,6 +40,7 @@ class _MyAppState extends State<MyApp> {
       providers: [
         ChangeNotifierProvider(create: (_)=> LoginProvider()),
         ChangeNotifierProvider(create: (_)=> CategoryProvider()),
+        ChangeNotifierProvider(create: (_)=> ExpenseProvider()),
       ],
       child: BlocProvider(
         create: (context) => themeModeBloc,
@@ -62,7 +64,7 @@ class _MyAppState extends State<MyApp> {
                       PointerDeviceKind.unknown
                     },
                   ),
-                  title: 'KONCRETIZ',
+                  title: 'KONCEPT GROUP',
                 );
               },
             );

@@ -1,7 +1,7 @@
 import 'package:admin_dashboard/src/constant/color.dart';
-import 'package:admin_dashboard/src/constant/const.dart';
+// import 'package:admin_dashboard/src/constant/const.dart';
 import 'package:admin_dashboard/src/constant/icons.dart';
-import 'package:admin_dashboard/src/constant/image.dart';
+// import 'package:admin_dashboard/src/constant/image.dart';
 import 'package:admin_dashboard/src/constant/string.dart';
 import 'package:admin_dashboard/src/constant/text.dart';
 import 'package:admin_dashboard/src/constant/theme.dart';
@@ -126,10 +126,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         label: _tableHeader('Nom de catégorie'),
                         size: ColumnSize.M,
                       ),
-                      DataColumn2(
-                        label: _tableHeader('Statut'),
-                        size: ColumnSize.S,
-                      ),
+                      // DataColumn2(
+                      //   label: _tableHeader('Statut'),
+                      //   size: ColumnSize.S,
+                      // ),
                       DataColumn2(
                         label: _tableHeader(''),
                         size: ColumnSize.S,
@@ -145,8 +145,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           DataCell(_tableHeader('${extractCategory[i].id}')),
                           // DataCell(_tableRowImage(Images.men)),
                           DataCell(_tableHeader(extractCategory[i].name)),
-                          DataCell(
-                              _statusBox(ColorConst.successDark, 'Active')),
+                          // DataCell(
+                          //     _statusBox(ColorConst.successDark, 'Active')),
                           DataCell(_editButton(i)),
                         ],
                       ),],
@@ -246,14 +246,18 @@ class _CategoryScreenState extends State<CategoryScreen> {
         children: [
           IconButton(
             onPressed: () {
+              isShow = true;
               // currentImage = Images.men;
+              categoryData.checkIsEdit(index);
               _categoryController.text = categoryData.categoryModel![index].name;
               setState(() {});
             },
             icon: const Icon(Icons.mode_edit_rounded),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              categoryData.deleteCategoryApi(context, categoryData.categoryModel![index].id);
+            },
             icon: Icon(
               Icons.delete,
               color: ColorConst.errorDark,
@@ -302,38 +306,57 @@ class _CategoryScreenState extends State<CategoryScreen> {
               ),
             ),
             FxBox.h24,
-            Container(
-              height: 40,
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: DropdownButton(
-                value: defaultValue,
-                underline: const SizedBox.shrink(),
-                icon: const Icon(Icons.keyboard_arrow_down),
-                items: _statusList.map((String items) {
-                  return DropdownMenuItem(
-                    value: items,
-                    child: Text(items),
-                  );
-                }).toList(),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    defaultValue = newValue!;
-                  });
-                },
-              ),
-            ),
+            // Container(
+            //   height: 40,
+            //   padding: const EdgeInsets.symmetric(horizontal: 12),
+            //   decoration: BoxDecoration(
+            //     border: Border.all(color: Colors.grey),
+            //     borderRadius: BorderRadius.circular(10),
+            //   ),
+            //   child: DropdownButton(
+            //     value: defaultValue,
+            //     underline: const SizedBox.shrink(),
+            //     icon: const Icon(Icons.keyboard_arrow_down),
+            //     items: _statusList.map((String items) {
+            //       return DropdownMenuItem(
+            //         value: items,
+            //         child: Text(items),
+            //       );
+            //     }).toList(),
+            //     onChanged: (String? newValue) {
+            //       setState(() {
+            //         defaultValue = newValue!;
+            //       });
+            //     },
+            //   ),
+            // ),
           ],
         ),
         const Spacer(),
         Consumer<CategoryProvider>(
-          builder: (_,categoryData, __) => FxButton(
+          builder: (_,categoryData, __) => categoryData.checkPostCategory == false ? Container(
+            height: 40,
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.primary,
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            constraints: BoxConstraints(
+              minWidth: MediaQuery.of(context).size.width / 7,
+            ),
+            child: const CupertinoActivityIndicator(
+              color: Colors.white,
+              radius: 8,
+            ),
+          )  :  FxButton(
             height: 50,
             onPressed: () async {
+              categoryData.postCategoryApiCheck();
+              categoryData.isEdit == false ?
               categoryData.postCategoryApi(_categoryController.text).then((value) => setState((){
+                isShow = !isShow;
+                _categoryController.text ="";
+              })) :
+              categoryData.updateCategoryApi(context,categoryData.categoryModel![categoryData.rowIndex].id,_categoryController.text).then((value) => setState((){
                 isShow = !isShow;
                 _categoryController.text ="";
               }));
@@ -341,7 +364,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
             fullWidth: false,
             color: ColorConst.primary,
             minWidth: MediaQuery.of(context).size.width / 7,
-            text: 'Ajouter une catégorie',
+            text: categoryData.isEdit == false ? 'Ajouter une catégorie' : "Update Category",
           ),
         ),
         FxBox.w24,
