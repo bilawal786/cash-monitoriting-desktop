@@ -229,7 +229,7 @@
         'Id',
         'Titre',
         'Catégorie',
-        'description',
+        'Description',
         'Date',
         'Prix',
         ''
