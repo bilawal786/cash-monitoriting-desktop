@@ -39,7 +39,7 @@ class ExpenseProvider with ChangeNotifier {
   }
 
 
-  Future<void> postExpenseApi (title, categoryId, description, date, price) async {
+  Future<void> postExpenseApi (title, categoryId, description, date, price, startingBalance) async {
     final SharedPreferences sharePref = await SharedPreferences.getInstance();
     String? userToken = sharePref.getString('token');
     var response = await http.post(
@@ -56,6 +56,7 @@ class ExpenseProvider with ChangeNotifier {
           'description':description.toString(),
           'date': date.toString(),
           'price': price.toString(),
+          'starting_balance': startingBalance.toString(),
         },
       ),
     );
@@ -70,7 +71,7 @@ class ExpenseProvider with ChangeNotifier {
       checkPostExpense = true;
       notifyListeners();
     }
-    // print(response.body);
+    print(response.body);
   }
 
 
@@ -112,7 +113,7 @@ class ExpenseProvider with ChangeNotifier {
   }
 
 
-  Future<void> updateExpenseApi (context, id, title, categoryId, description, date, price ) async {
+  Future<void> updateExpenseApi (context, id, title, categoryId, description, date, price , startingBalance) async {
     final SharedPreferences sharePref = await SharedPreferences.getInstance();
     String? userToken = sharePref.getString('token');
     var response = await http.put(
@@ -129,6 +130,7 @@ class ExpenseProvider with ChangeNotifier {
           'description':description.toString(),
           'date': date.toString(),
           'price': price.toString(),
+          'starting_balance': startingBalance.toString(),
         },
       ),
     );
@@ -144,6 +146,22 @@ class ExpenseProvider with ChangeNotifier {
       notifyListeners();
     }
     print(response.body);
+  }
+
+
+
+
+  DateTime selectedDate = DateTime.now();
+  Future selectDateProvider(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime.now(),
+        lastDate: DateTime(2111));
+    if (picked != null) {
+      selectedDate = picked;
+      notifyListeners();
+    }
   }
 
 }

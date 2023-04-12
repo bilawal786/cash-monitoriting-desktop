@@ -14,6 +14,7 @@ class ExpenseModel {
     required this.category,
     required this.title,
     required this.price,
+    required this.startingBalance,
     required this.date,
     required this.description,
   });
@@ -22,6 +23,7 @@ class ExpenseModel {
   final String category;
   final String title;
   final String price;
+  final String startingBalance;
   final String date;
   final String description;
 
@@ -30,7 +32,8 @@ class ExpenseModel {
     category: json["category"],
     title: json["title"],
     price: json["price"],
-    date: json["date"],
+    startingBalance: json["starting_balance"],
+    date:json["date"],
     description: json["description"],
   );
 
@@ -39,6 +42,7 @@ class ExpenseModel {
     "category": category,
     "title": title,
     "price": price,
+    "starting_balance": startingBalance,
     "date": date,
     "description": description,
   };

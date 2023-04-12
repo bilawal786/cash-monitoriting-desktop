@@ -42,6 +42,7 @@
     final TextEditingController _description = TextEditingController();
     final TextEditingController _date = TextEditingController();
     final TextEditingController _price = TextEditingController();
+    final TextEditingController _startingBalance = TextEditingController();
     final ValueNotifier<String> _categorySelected = ValueNotifier('');
 
     final List<ProductModel> _productItem = [
@@ -83,11 +84,15 @@
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
+
               FxButton(
+                height: 50,
+                color: ColorConst.primary,
                 onPressed: () {
                   _expenseName.clear();
                   _description.clear();
                   _date.clear();
+                  _startingBalance.clear();
                   _price.clear();
                   FxModal.showModel(
                     context: context,
@@ -118,12 +123,12 @@
                             )  : FxButton(
                               onPressed: () {
                                 expenseData.postExpenseApiCheck();
-                                expenseData.postExpenseApi(_expenseName.text, _categorySelected.value, _description.text, _date.text, _price.text).then((value) {
+                                expenseData.postExpenseApi(_expenseName.text, _categorySelected.value, _description.text, "${expenseData.selectedDate.day < 10 ? "0${expenseData.selectedDate.day}" : "${expenseData.selectedDate.day}"}-${expenseData.selectedDate.month < 10 ? "0${expenseData.selectedDate.month}" : "${expenseData.selectedDate.month}"}-${expenseData.selectedDate.year}", _price.text, _startingBalance.text).then((value) {
                                   Navigator.pop(context);
                                   _expenseName.clear();
                                   _description.clear();
-                                  _date.clear();
                                   _price.clear();
+                                  _startingBalance.clear();
                                 },
                                 );
                                 // setState(
@@ -154,7 +159,7 @@
                 },
                 icon: const Icon(Icons.add),
                 text: 'Ajouter une nouvelle dépense',
-                borderRadius: 4.0,
+                // borderRadius: 4.0,
               ),
               FxBox.h10,
 
@@ -230,8 +235,9 @@
         'Titre',
         'Catégorie',
         'Description',
+        'Solde de départ',
         'Date',
-        'Prix',
+        'Solde de clôture',
         ''
       ];
       return [
@@ -255,7 +261,8 @@
               DataCell(Text(expenseModel[i].title)),
               DataCell(Text(expenseModel[i].category)),
               DataCell(Text(expenseModel[i].description,overflow: TextOverflow.ellipsis, maxLines: 2,)),
-              DataCell(Text(expenseModel[i].date)),
+              DataCell(Text("${expenseModel[i].startingBalance}€")),
+              DataCell(Text(expenseModel[i].date.toString().substring(0, 10))),
               DataCell(
                 Text(
                   "${expenseModel[i].price.toString()}€",
@@ -269,7 +276,7 @@
                       _expenseName.text = expenseModel[i].title;
 
                       _description.text = expenseModel[i].description;
-                      _date.text = expenseModel[i].date;
+                      _startingBalance.text = expenseModel[i].startingBalance;
                       _price.text =expenseModel[i].price;
                       FxModal.showModel(
                         context: context,
@@ -300,12 +307,13 @@
                                 )  : FxButton(
                                   onPressed: () {
                                     expenseData.postExpenseApiCheck();
-                                    expenseData.updateExpenseApi(context, expenseModel[i].id,_expenseName.text, _categorySelected.value, _description.text, _date.text, _price.text).then((value) {
+                                    expenseData.updateExpenseApi(context, expenseModel[i].id,_expenseName.text, _categorySelected.value, _description.text, expenseData.selectedDate, _price.text, _startingBalance.text).then((value) {
                                       Navigator.pop(context);
                                       _expenseName.clear();
                                       _description.clear();
                                       _date.clear();
                                       _price.clear();
+                                      _startingBalance.clear();
                                     },
                                     );
                                     // setState(
@@ -409,6 +417,18 @@
           FxBox.h6,
           _categoryDropDown(),
           FxBox.h16,
+          _formTitle('Solde de départ'),
+          FxBox.h6,
+          CustomTextField(
+            controller: _startingBalance,
+            contentPadding: const EdgeInsets.all(12.0),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+          ),
           _expiryRow(),
         ],
       );
@@ -448,6 +468,18 @@
           // FxBox.h6,
           // _categoryDropDown(),
           FxBox.h16,
+          _formTitle('Solde de départ'),
+          FxBox.h6,
+          CustomTextField(
+            controller: _startingBalance,
+            contentPadding: const EdgeInsets.all(12.0),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+          ),
           _expiryRow(),
         ],
       );
@@ -728,36 +760,71 @@
     Widget _expiryRow() {
       return Row(
         children: [
+
+
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _formTitle('Date'),
                 FxBox.h6,
-                CustomTextField(
-                  controller: _date,
-                  keyboardType: TextInputType.datetime,
-                  contentPadding: const EdgeInsets.all(12.0),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
+                Consumer<ExpenseProvider>(
+                  builder: (_, selectDate, child) => GestureDetector(
+                    onTap: () {
+                      selectDate.selectDateProvider(context);
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.only(left: 30, right: 10),
+                      alignment: Alignment.centerLeft,
+                      width: MediaQuery.of(context).size.width,
+                      height: 45,
+                      decoration: BoxDecoration(
+                        // color: Colors.white,
+                        border: Border.all(color: Colors.black),
+                        borderRadius: BorderRadius.circular(7),
+                      ),
+                      child: Text(
+                        "${selectDate.selectedDate.day < 10 ? "0${selectDate.selectedDate.day}" : "${selectDate.selectedDate.day}"}-${selectDate.selectedDate.month < 10 ? "0${selectDate.selectedDate.month}" : "${selectDate.selectedDate.month}"}-${selectDate.selectedDate.year}",
+                        style: Theme.of(context).textTheme.labelLarge,
+                      ),
+                    ),
                   ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  inputFormatters: [
-                    LengthLimitingTextInputFormatter(10),
-                    CustomDateTextFormatter(),
-                  ],
                 ),
               ],
             ),
           ),
+
+
+          // Expanded(
+          //   child: Column(
+          //     crossAxisAlignment: CrossAxisAlignment.start,
+          //     children: [
+          //       _formTitle('Date'),
+          //       FxBox.h6,
+          //       CustomTextField(
+          //         controller: _date,
+          //         keyboardType: TextInputType.datetime,
+          //         contentPadding: const EdgeInsets.all(12.0),
+          //         enabledBorder: OutlineInputBorder(
+          //           borderRadius: BorderRadius.circular(8.0),
+          //         ),
+          //         focusedBorder: OutlineInputBorder(
+          //           borderRadius: BorderRadius.circular(8.0),
+          //         ),
+          //         inputFormatters: [
+          //           LengthLimitingTextInputFormatter(10),
+          //           CustomDateTextFormatter(),
+          //         ],
+          //       ),
+          //     ],
+          //   ),
+          // ),
           FxBox.w12,
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _formTitle('Prix'),
+                _formTitle('Solde de clôture'),
                 FxBox.h6,
                 CustomTextField(
                   controller: _price,

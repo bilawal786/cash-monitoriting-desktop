@@ -4,6 +4,8 @@ import 'package:admin_dashboard/src/constant/icons.dart';
 import 'package:admin_dashboard/src/constant/image.dart';
 import 'package:admin_dashboard/src/constant/string.dart';
 import 'package:admin_dashboard/src/constant/theme.dart';
+import 'package:admin_dashboard/src/provider/category_provider/category_provider.dart';
+import 'package:admin_dashboard/src/provider/dashboard_provider/dashboard_provider.dart';
 import 'package:admin_dashboard/src/provider/theme/bloc/theme_mode_bloc.dart';
 import 'package:admin_dashboard/src/routes/routes.gr.dart';
 import 'package:admin_dashboard/src/utils/extainsions/string_extainsions.dart';
@@ -19,6 +21,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterx/flutterx.dart';
+import 'package:provider/provider.dart';
 
 class FMenuBar extends StatefulWidget {
   const FMenuBar({Key? key}) : super(key: key);
@@ -103,6 +106,7 @@ class _MenuBarState extends State<FMenuBar> {
   //     // Strings.returnCondition,
   //   ],
   // ];
+
 
   List<List<String>> extrasExpandList = [
     [
@@ -217,6 +221,19 @@ class _MenuBarState extends State<FMenuBar> {
   final ValueNotifier<TextDirection> _layout =
       ValueNotifier<TextDirection>(TextDirection.ltr);
   final ValueNotifier<bool> _switchlayout = ValueNotifier<bool>(false);
+
+
+  var isInit = true;
+
+  @override
+  void didChangeDependencies() {
+    if(isInit){
+      Provider.of<CategoryProvider>(context).getCategoryApi();
+      Provider.of<DashboardProvider>(context).getDashboardStatsApi();
+    }
+    isInit = false;
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {

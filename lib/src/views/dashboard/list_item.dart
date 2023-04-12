@@ -1,8 +1,10 @@
 import 'package:admin_dashboard/src/constant/color.dart';
 import 'package:admin_dashboard/src/constant/text.dart';
+import 'package:admin_dashboard/src/provider/dashboard_provider/dashboard_provider.dart';
 import 'package:admin_dashboard/src/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterx/flutterx.dart';
+import 'package:provider/provider.dart';
 
 class Listitem extends StatefulWidget {
   const Listitem({Key? key}) : super(key: key);
@@ -51,52 +53,59 @@ class _ListitemState extends State<Listitem> {
   ];
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      child: GridView.builder(
-        gridDelegate: Responsive.isMobile(context)
-            ? const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 1,
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 20,
-                mainAxisExtent: 205,
-              )
-            : MediaQuery.of(context).size.width < 1500
-                ? const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 20,
-                    mainAxisSpacing: 20,
-                    mainAxisExtent: 205,
-                  )
-                : SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent:
-                        MediaQuery.of(context).size.width * 0.24,
-                    crossAxisSpacing: 20,
-                    mainAxisSpacing: 20,
-                    mainAxisExtent: 205,
-                  ),
-        itemCount: _listItem.length,
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: (context, index) {
-          return _listContainer(
-            boxIcon: _listItem[index]['boxIcon'],
-            productTitle: _listItem[index]['producTitle'],
-            value: _listItem[index]['value'],
-            // percentage: _listItem[index]['percentage'],
-            color: index == 3
-                ? [
-                    Color(int.parse('0xff${_listItem[index]['boxColor'][0]}'))
-                        .withOpacity(0.75),
-                    Color(int.parse('0xff${_listItem[index]['boxColor'][1]}'))
-                        .withOpacity(0.75)
-                  ]
-                : [
-                    Color(int.parse('0xff${_listItem[index]['boxColor'][0]}')),
-                    Color(int.parse('0xff${_listItem[index]['boxColor'][1]}'))
-                  ],
-          );
-        },
+    return Consumer<DashboardProvider>(
+      builder: (_,dashboard,__) => SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: GridView.builder(
+          gridDelegate: Responsive.isMobile(context)
+              ? const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 1,
+                  crossAxisSpacing: 20,
+                  mainAxisSpacing: 20,
+                  mainAxisExtent: 205,
+                )
+              : MediaQuery.of(context).size.width < 1500
+                  ? const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 20,
+                      mainAxisSpacing: 20,
+                      mainAxisExtent: 205,
+                    )
+                  : SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent:
+                          MediaQuery.of(context).size.width * 0.24,
+                      crossAxisSpacing: 20,
+                      mainAxisSpacing: 20,
+                      mainAxisExtent: 205,
+                    ),
+          itemCount: _listItem.length,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemBuilder: (context, index) {
+            return _listContainer(
+              boxIcon: _listItem[index]['boxIcon'],
+              productTitle: _listItem[index]['producTitle'],
+              value:  dashboard.dashboardModel == null ? '0' :
+              _listItem[index]['producTitle'] == 'Catégories totales' ? dashboard.dashboardModel!.totalCategories.toString() :
+              _listItem[index]['producTitle'] == 'Dépenses totales' ? dashboard.dashboardModel!.totalExpenseRecords.toString() :
+              _listItem[index]['producTitle'] == 'Dépenses mensuelles' ? dashboard.dashboardModel!.currentMonthExpense.toString() :
+              _listItem[index]['producTitle'] == 'Dépenses annuelles' ? dashboard.dashboardModel!.currentYearExpense.toString() : _listItem[index]['value'],
+              // (_listItem[index]['producTitle'] == "Catégories totales") ? dashboard.dashboardModel!.totalCategories : 0,
+              // percentage: _listItem[index]['percentage'],
+              color: index == 3
+                  ? [
+                      Color(int.parse('0xff${_listItem[index]['boxColor'][0]}'))
+                          .withOpacity(0.75),
+                      Color(int.parse('0xff${_listItem[index]['boxColor'][1]}'))
+                          .withOpacity(0.75)
+                    ]
+                  : [
+                      Color(int.parse('0xff${_listItem[index]['boxColor'][0]}')),
+                      Color(int.parse('0xff${_listItem[index]['boxColor'][1]}'))
+                    ],
+            );
+          },
+        ),
       ),
     );
   }

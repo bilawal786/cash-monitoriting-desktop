@@ -1,7 +1,9 @@
+import 'package:admin_dashboard/src/provider/dashboard_provider/dashboard_provider.dart';
 import 'package:admin_dashboard/src/views/dashboard/list_item.dart';
 import 'package:admin_dashboard/src/views/dashboard/montly_earning.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterx/flutterx.dart';
+import 'package:provider/provider.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -11,6 +13,17 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+
+  var isInit = true;
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if(isInit){
+      Provider.of<DashboardProvider>(context).getDashboardStatsApi();
+    }
+    isInit = false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(

@@ -1,5 +1,6 @@
 import 'package:admin_dashboard/src/constant/theme.dart';
 import 'package:admin_dashboard/src/provider/expense_provider/expense_provider.dart';
+import 'package:admin_dashboard/src/provider/report_provider/report_provider.dart';
 import 'package:admin_dashboard/src/provider/theme/bloc/theme_mode_bloc.dart';
 import 'package:admin_dashboard/src/routes/routes.gr.dart';
 import 'package:admin_dashboard/src/utils/hive/hive.dart';
@@ -11,6 +12,7 @@ import 'package:provider/provider.dart';
 
 import 'provider/auth_provider/login_provider.dart';
 import 'provider/category_provider/category_provider.dart';
+import 'provider/dashboard_provider/dashboard_provider.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -41,6 +43,8 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_)=> LoginProvider()),
         ChangeNotifierProvider(create: (_)=> CategoryProvider()),
         ChangeNotifierProvider(create: (_)=> ExpenseProvider()),
+        ChangeNotifierProvider(create: (_)=> DashboardProvider()),
+        ChangeNotifierProvider(create: (_)=> ReportProvider()),
       ],
       child: BlocProvider(
         create: (context) => themeModeBloc,
