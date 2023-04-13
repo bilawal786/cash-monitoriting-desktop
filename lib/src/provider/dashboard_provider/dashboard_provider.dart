@@ -25,6 +25,6 @@ class DashboardProvider with ChangeNotifier {
     else {
       debugPrint("Get dashboard stats Api is not working");
     }
-    print(response.body);
+    // print(response.body);
   }
 }
