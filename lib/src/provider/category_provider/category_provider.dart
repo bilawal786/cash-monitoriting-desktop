@@ -102,8 +102,13 @@ class CategoryProvider with ChangeNotifier {
     }
   }
 
-  bool isEdit = false;
+  bool? isEdit;
   var rowIndex;
+
+  setIsEditNull(){
+    isEdit = null;
+    notifyListeners();
+  }
 
   checkIsEdit(index){
     isEdit = true;

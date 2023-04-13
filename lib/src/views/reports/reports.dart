@@ -184,6 +184,8 @@ class _ReportsState extends State<Reports> {
             ),
           ] else ... [
             Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Expanded(
                   flex: 1,
@@ -203,13 +205,13 @@ class _ReportsState extends State<Reports> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              const Text("Opening Balance",
+                              const Text("Solde d'ouverture",
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,
                                 ),),
                               // FxBox.w28,
-                              Text(reportsData.reportsModel['this_month_opening_balance'].toString(),
+                              Text("${reportsData.reportsModel['this_month_opening_balance']} €",
                                 style: const TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,
@@ -221,13 +223,13 @@ class _ReportsState extends State<Reports> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              const Text("Closing Balance",
+                              const Text("Solde de clôture",
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,
                                 ),),
                               FxBox.w28,
-                              Text("${reportsData.reportsModel['this_month_closing_balancee']}",
+                              Text("${reportsData.reportsModel['this_month_closing_balancee']} €",
                                 style: const TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,
@@ -285,81 +287,137 @@ class _ReportsState extends State<Reports> {
                             ),),
                           FxBox.h20,
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children:  <Widget>[
-                              const Text("Catégorie",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                ),),
-                              FxBox.w28,
-                              const Text("Opening Balance",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                ),),
-                              FxBox.w28,
-                              const Text("Closing Balance",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                ),),
+                              SizedBox(
+                                // color: Colors.red,
+                                width: 150,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: const <Widget>[
+                                     Text("Catégorie",
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                      ),),
+                                  ],
+                                ),
+                              ),
+                              // FxBox.w28,
+
+                               SizedBox(
+                                 // color: Colors.red,
+                                 width: 150,
+                                 child: Column(
+                                   crossAxisAlignment: CrossAxisAlignment.start,
+                                   children: const <Widget>[
+                                     Text("Solde d'ouverture",
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                      ),),
+                                   ],
+                                 ),
+                               ),
+                              // FxBox.w28,
+                              SizedBox(
+                                // color: Colors.red,
+                                width: 150,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: const <Widget>[
+                                    Text("Solde de clôture",
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                      ),),
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
                           FxBox.h16,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children:  <Widget>[
-                              Text("${reportsData.reportsModel['expense']}",
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                ),),
-                              FxBox.w28,
-                              const Text("Opening Balance",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                ),),
-                              FxBox.w28,
-                              const Text("Closing Balance",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                ),),
-                            ],
-                          ),
-                          // ListView.builder(
-                          //   shrinkWrap: true,
-                          //   physics: const NeverScrollableScrollPhysics(),
-                          //   itemCount: 2,
-                          //   itemBuilder: (_, index) => Column(
-                          //     children: <Widget>[
-                          //       Row(
-                          //         mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          //         children: <Widget>[
-                          //           const Text("I Phone",
-                          //             style: TextStyle(
-                          //               fontSize: 14,
-                          //               fontWeight: FontWeight.bold,
-                          //             ),),
-                          //           FxBox.w28,
-                          //           const Text("1",
-                          //             style: TextStyle(
-                          //               fontSize: 14,
-                          //               fontWeight: FontWeight.bold,
-                          //             ),),
-                          //           FxBox.w28,
-                          //           const Text("2300€",
-                          //             style: TextStyle(
-                          //               fontSize: 14,
-                          //               fontWeight: FontWeight.bold,
-                          //             ),),
-                          //         ],
-                          //       ),
-                          //       FxBox.h16,
-                          //     ],
-                          //   ),),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          //   children:  <Widget>[
+                          //     Text("${reportsData.reportsModel[]}",
+                          //       style: TextStyle(
+                          //         fontSize: 14,
+                          //         fontWeight: FontWeight.bold,
+                          //       ),),
+                          //     FxBox.w28,
+                          //     const Text("Opening Balance",
+                          //       style: TextStyle(
+                          //         fontSize: 14,
+                          //         fontWeight: FontWeight.bold,
+                          //       ),),
+                          //     FxBox.w28,
+                          //     const Text("Closing Balance",
+                          //       style: TextStyle(
+                          //         fontSize: 14,
+                          //         fontWeight: FontWeight.bold,
+                          //       ),),
+                          //   ],
+                          // ),
+                          ListView.builder(
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: reportsData.reportsModel!['expenses'].length,
+                            itemBuilder: (_, index) => Column(
+                              children: <Widget>[
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    SizedBox(
+                                      // color: Colors.red,
+                                      width: 150,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text("${reportsData.reportsModel!['expenses'][index]['category_name']}",
+                                            style: const TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold,
+                                            ),),
+                                        ],
+                                      ),
+                                    ),
+                                    // FxBox.w10,
+                                    SizedBox(
+                                      // color: Colors.red,
+                                      width: 150,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text("${reportsData.reportsModel!['expenses'][index]['starting_balance']} €",
+                                            style: const TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold,
+                                            ),),
+                                        ],
+                                      ),
+                                    ),
+                                    // FxBox.w28,
+                                    SizedBox(
+                                      // color: Colors.red,
+                                      width: 150,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text("${reportsData.reportsModel!['expenses'][index]['price']} €",
+                                            style: const TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold,
+                                            ),),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                FxBox.h16,
+                              ],
+                            ),),
                         ],
                       ),
                     ),
@@ -384,8 +442,7 @@ class _ReportsState extends State<Reports> {
         fullWidth: false,
         minWidth: MediaQuery.of(context).size.width / 7,
         onPressed: () {
-          print("report button pressed");
-          Provider.of<ReportProvider>(context,listen: false).getReports(defaultMonthNo, defaultYearValue).then((value) =>
+          Provider.of<ReportProvider>(context,listen: false).getReports(context, defaultMonthNo, defaultYearValue).then((value) =>
               setState(() {
                 initialReport = true;
               })

@@ -351,7 +351,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
             height: 50,
             onPressed: () async {
               categoryData.postCategoryApiCheck();
-              categoryData.isEdit == false ?
+              categoryData.isEdit == null ?
               categoryData.postCategoryApi(_categoryController.text).then((value) => setState((){
                 isShow = !isShow;
                 _categoryController.text ="";
@@ -364,7 +364,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
             fullWidth: false,
             color: ColorConst.primary,
             minWidth: MediaQuery.of(context).size.width / 7,
-            text: categoryData.isEdit == false ? 'Ajouter une catégorie' : "Update Category",
+            text: categoryData.isEdit == true ? "Update Category" : 'Ajouter une catégorie' ,
           ),
         ),
         FxBox.w24,
@@ -398,6 +398,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
         minWidth: MediaQuery.of(context).size.width / 7,
         onPressed: () {
           isShow = !isShow;
+          Provider.of<CategoryProvider>(context,listen: false).setIsEditNull();
           setState(() {});
         },
         text: 'Nouvelle catégorie',
